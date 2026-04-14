@@ -7,22 +7,17 @@
 
 ## Cadeau Ideeën-pagina
 - Foto's producten
-- Ideetje om een carousel te maken in plaats van dit?
-- Geen idee of dat haalbaar is binnen de tijd...
+- Ideetje om een carousel te maken in plaats van huidige opzet? Geen idee of dat haalbaar is binnen de tijd... Waarschijnlijk wel netter dan deze cards.
 
 ## Overig
 - Carousel aanvullen (index.html)
-- Error pagina als een boek niet gevonden is
-- Andere style voor reset knop op zoekpagina
+- Error pagina als een boek niet gevonden is via een route
 - Dikkere rand om card admin panel + orders
-- Inlog route heeft nog niet de "huisstijl"
-- Headers zijn niet overal even groot
-- "Kopjes" in footer moeten minder dik
 
 ## Winkelmandje
 - Totaal en subtotaal staat volgens mij omgekeerd
-- "Terug naar winkelmandje" moet nog oranje worden qua stijl
 - Dikkere rand rondom card bestelpagina + winkelmandje
+- Foto van boek in winkelmandje
 
 ## Comments
 - COMMENTS! COMMENTS! COMMENTS!

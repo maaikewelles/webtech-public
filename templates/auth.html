@@ -4,7 +4,7 @@
 <article class="card border-dark-subtle shadow-sm auth-card">
     <div class="card-body">
     {% if form_type == "login" %}
-    <h3 class="h5 mb-3">Inloggen</h3>
+    <h3 class="h5 mb-3"><strong>Inloggen</strong></h3>
     <form method="post" action="{{ url_for('auth.auth', form='login') }}" class="auth-form row g-2">
         <input type="hidden" name="form_type" value="login">
         {{ csrf_field() }}
@@ -18,7 +18,7 @@
         <button type="submit" class="btn btn-success">Inloggen</button>
     </form>
     {% else %}
-    <h3 class="h5 mb-3">Account aanmaken</h3>
+    <h3 class="h5 mb-3"><strong>Account aanmaken</strong></h3>
     <form method="post" action="{{ url_for('auth.auth', form='register') }}" class="auth-form row g-2">
         <input type="hidden" name="form_type" value="register">
         {{ csrf_field() }}
@@ -42,8 +42,8 @@
 {% block title %}Inloggen en Account Aanmaken - Hoofdzaken &amp; Co{% endblock %}
 
 {% block content %}
-<section class="auth-header">
-    <h2 class="mb-1">Inloggen of account aanmaken</h2>
+<section class="auth-header page-header">
+    <h2 class="mb-1"><strong>Inloggen en account aanmaken</strong></h2>
     <p class="mb-0">Gebruik je bestaande account of maak een nieuw account aan.</p>
 </section>
 

@@ -4,7 +4,7 @@
 
 {% block content %}
 <section class="page-header">
-    <h3 class="mb-2"><strong>Zoeken</strong></h3>
+    <h2 class="mb-2"><strong>Zoeken</strong></h2>
     <p class="mb-0">Zoek op titel, auteur, ISBN, genre of taal.</p>
 </section>
 
@@ -24,7 +24,7 @@
             </div>
             <div class="col-12 col-md-auto d-flex gap-2">
                 <button class="btn btn-success" type="submit">Zoeken</button>
-                <a class="btn btn-outline-dark" href="{{ url_for('shop.search_page') }}">Reset</a>
+                <a class="btn btn-orange" href="{{ url_for('shop.search_page') }}">Reset</a>
             </div>
         </form>
 
