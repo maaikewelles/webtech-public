@@ -13,6 +13,7 @@
 - Carousel aanvullen (index.html)
 - Error pagina als een boek niet gevonden is via een route
 - Dikkere rand om card admin panel + orders
+- Evt. gebruikers hun account laten verwijderen?
 
 ## Winkelmandje
 - Totaal en subtotaal staat volgens mij omgekeerd

@@ -1,6 +1,6 @@
 # Hoofdzaken & Co. Webshop 📚📖
 
-Een simpele Flask webapplicatie gemaakt onder andere met Bootstrap als framework voor het fictieve bedrijf Hoofdzaken & Co. Hoofdzaken & Co. is een boekenhandel die zich specialiseert in zelfhulpboeken. Dit project is de eindopdracht van 1.3 Webtechnologie I aan de Hanze.
+Een simpele Flask webapplicatie gemaakt onder andere met Bootstrap als framework voor het fictieve bedrijf Hoofdzaken & Co. Hoofdzaken & Co. is een boekenhandel die zich specialiseert in zelfhulpboeken. Dit project is de eindopdracht van 1.3 Webtechnologie I 25-26 aan de Hanze.
 
 ## Gebouwd met
 
@@ -40,6 +40,7 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 - `.venv` aanmaken als dit nodig is
 - dependencies van `requirements.txt` installeren
 - de app opstarten
+- vervolgens kan je hem openen in je browser: `http://127.0.0.1:5000/`
 
 ## Routes
 
@@ -50,11 +51,11 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 - `/register` shortcut naar registratie
 - `/profile` profielpagina (vereist login)
 - `/orders` eigen bestellingen (vereist login)
-- `/admin/orders` alle bestellingen (alleen admin)
+- `/admin/orders` overzicht alle bestellingen en CRUD-mogelijkheden (alleen admin)
 - `/shop` webshop met filters en paginering
-- `/shop/product/<book_id>` productdetailpagina
+- `/shop/product/<book_id>` productpagina's
 - `/search` zoekpagina
-- `/gifts` cadeau-inspiratiepagina
+- `/gifts` cadeauinspiratie met aantal thema's
 - `/cart` winkelmandje
 - `/cart/checkout` afrekenen (vereist login)
 
@@ -68,17 +69,17 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 
 ## Boeken
 
-- De webshop laadt boeken uit SQLite `instance/books.db`
+- De webshop laadt boeken uit SQLite: `instance/books.db` (database nog niet gerealiseerd)
 - De database wordt automatisch aangemaakt en gevuld met de huidige catalogus bij het opstarten
 - Product-, overzichts- en zoekpagina’s lezen rechtstreeks uit deze database
 
 ## Winkelmandje en bestellingen
 
-- Winkelmandje werkt met sessies (`cart` in session)
-- Aantallen zijn aanpasbaar in het winkelmandje
+- Het winkelmandje werkt met sessies (`cart` in session)
+- De aantallen van boeken zijn aanpasbaar in het winkelmandje en totaalprijs wordt automatisch herberekend
 - Bij het aanmaken van een bestelling wordt een bestelling met orderregels opgeslagen in `instance/users.db`
 - Gebruikers kunnen hun eigen bestellingen bekijken via `/orders`
-- Admin kan bestellingen bekijken, status van verzending aanpassen en verwijderen via `/admin/orders`
+- Admin kan bestellingen bekijken, status van verzending aanpassen en verwijderen (CRUD) via `/admin/orders`
 
 ## Blueprints
 
@@ -92,4 +93,12 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 
 - `SECRET_KEY` voor een vaste app secret
 - `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` voor het admin-account bij initialisatie
-- Bij initialisatie is het e-mailadres admin@hoofdzaken.nl en het wachtwoord is Admin123!
+- Bij initialisatie van de app is het e-mailadres van Admin admin@hoofdzaken.nl en het wachtwoord is Admin123!
+
+## Overige functionaliteit
+
+- **Profielfoto**: Ingelogde gebruikers kunnen een profielfoto uploaden, wijzigen en verwijderen; JPG, JPEG, PNG, GIF en WEBP worden ondersteund
+- **Wishlist**: Gebruikers kunnen boeken toevoegen aan hun persoonlijke wishlist om deze later te bekijken en kopen of verwijderen uit de lijst
+- **Shop-filters**: In de webshop kan de gebruiker boeken filteren op genre, taal en prijs
+- **Zoekfunctionaliteit**: Een boek kan worden gevonden op basis van titel, auteur en ISBN via de zoekfunctie
+- **CSRF-bescherming**: Alle formulieren zijn beveiligd tegen CSRF (Cross-Site Request Forgery) aanvallen door middel van CSRF-tokens
