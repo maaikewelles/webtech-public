@@ -14,11 +14,13 @@ BOOK_PRICE_FILTERS: dict[str, tuple[int | None, int | None]] = {
 
 
 def format_price_cents(price_cents: int) -> str:
+    """formatteren van prijs in centen naar de EUR notatie die in de webshop wordt gehanteerd."""
     euros, cents = divmod(price_cents, 100)
     return f"EUR {euros},{cents:02d}"
 
 
 def parse_price_text(price_text: str) -> int:
+    """geformatteerde prijs terug omzetten naar centen."""
     cleaned_price = price_text.upper().replace("EUR", "").strip().replace(".", "")
     euros_text, _, cents_text = cleaned_price.partition(",")
     euros = int(euros_text or "0")
@@ -27,6 +29,7 @@ def parse_price_text(price_text: str) -> int:
 
 
 def normalize_book_genre(genre: str | None) -> str:
+    """teruggeven van een "veilig" standaardgenre wanneer de bronwaarde leeg is."""
     if not genre:
         return "Algemeen"
 
@@ -35,6 +38,7 @@ def normalize_book_genre(genre: str | None) -> str:
 
 
 def build_placeholder_books(total_books: int = 71) -> list[dict[str, str | int]]:
+    """genereren van een seeded placeholder catalogus gebruikt voor de lokale boekendatabase."""
     books: list[dict[str, str | int]] = []
     for index in range(1, total_books + 1):
         genre = BOOK_GENRES[(index - 1) % len(BOOK_GENRES)]
@@ -68,13 +72,14 @@ def build_placeholder_books(total_books: int = 71) -> list[dict[str, str | int]]
 
 
 def get_placeholder_book(book_id: int, total_books: int = 71) -> dict[str, str | int] | None:
+    """teruggeven van een seeded placeholder boek op basis van id wanneer deze binnen de range van de seed valt."""
     if 1 <= book_id <= total_books:
         return build_placeholder_books(total_books)[book_id - 1]
     return None
 
 
 def init_books_db() -> None:
-    # aanmaken van de boektabellen aan en vul/herstel de voorbeelddata waar dat nodig is
+    """aanmaken van de boektabellen aan en vul/herstel de voorbeelddata waar dat nodig is."""
     db = get_books_db()
     db.execute(
         """
@@ -160,7 +165,7 @@ def init_books_db() -> None:
 
 
 def build_book_filters(genre: str | None = None, language: str | None = None, price_filter: str | None = None) -> tuple[str, list[Any]]:
-    # hier worden filterkeuzes vertaald naar SQL where-clauses met parameters
+    """hier worden filterkeuzes vertaald naar SQL where-clauses met parameters."""
     clauses: list[str] = []
     params: list[Any] = []
 
@@ -188,6 +193,7 @@ def build_book_filters(genre: str | None = None, language: str | None = None, pr
 
 
 def count_books(genre: str | None = None, language: str | None = None, price_filter: str | None = None) -> int:
+    """het tellen van boeken na het toepassen van geselecteerde filters."""
     where_clause, params = build_book_filters(genre, language, price_filter)
     row = get_books_db().execute(f"SELECT COUNT(*) AS total FROM books{where_clause}", params).fetchone()
     if row is None:
@@ -202,6 +208,7 @@ def list_books(
     language: str | None = None,
     price_filter: str | None = None,
 ) -> list[sqlite3.Row]:
+    """teruggeven van boeken voor de overzichtapagina met optionele filters en paginering."""
     where_clause, params = build_book_filters(genre, language, price_filter)
     query = (
         "SELECT id, title, author, isbn, binding, language, genre, summary, price, price_cents, delivery, stock "
@@ -217,6 +224,7 @@ def list_books(
 
 
 def search_books(query_text: str, limit: int = 50) -> list[sqlite3.Row]:
+    """zoeken in de boekencatalogus over de hoofdtekstvelden."""
     normalized_query = query_text.strip()
     if not normalized_query:
         return []
@@ -241,6 +249,7 @@ def search_books(query_text: str, limit: int = 50) -> list[sqlite3.Row]:
 
 
 def list_book_genres() -> list[str]:
+    """teruggeven van de verschillende genres die momenteel beschikbaar zijn in de boekendatabase."""
     rows = get_books_db().execute(
         "SELECT DISTINCT genre FROM books WHERE genre IS NOT NULL AND genre != '' ORDER BY genre"
     ).fetchall()
@@ -248,6 +257,7 @@ def list_book_genres() -> list[str]:
 
 
 def list_book_languages() -> list[str]:
+    """teruggeven van de verschillende talen die momenteel beschikbaar zijn in de boekendatabase."""
     rows = get_books_db().execute(
         "SELECT DISTINCT language FROM books WHERE language IS NOT NULL AND language != '' ORDER BY language"
     ).fetchall()
@@ -255,6 +265,7 @@ def list_book_languages() -> list[str]:
 
 
 def get_book_by_id(book_id: int) -> sqlite3.Row | None:
+    """fetchen van een boek op basis van id."""
     return get_books_db().execute(
         "SELECT id, title, author, isbn, binding, language, genre, summary, price, price_cents, delivery, stock FROM books WHERE id = ?",
         (book_id,),

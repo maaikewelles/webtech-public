@@ -2,7 +2,7 @@
 
 ## Database
 - Zeg maar gerust de gehele SQLite database
-- Lijst met titels (71?) en data
+- Lijst met titels (71? of 51) en data
 - Foto's vd boeken
 
 ## Cadeau Ideeën-pagina
@@ -12,13 +12,7 @@
 ## Overig
 - Carousel aanvullen (index.html)
 - Error pagina als een boek niet gevonden is via een route
-- Dikkere rand om card admin panel + orders
 - Evt. gebruikers hun account laten verwijderen?
-
-## Winkelmandje
-- Totaal en subtotaal staat volgens mij omgekeerd
-- Dikkere rand rondom card bestelpagina + winkelmandje
-- Foto van boek in winkelmandje
 
 ## Comments
 - COMMENTS! COMMENTS! COMMENTS!

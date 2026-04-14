@@ -7,7 +7,7 @@
     <h2 class="mb-1"><strong>Winkelmandje</strong></h2>
 </header>
 
-<section class="page-card cart-page-card">
+<section class="page-card cart-page-card page-card-strong-border">
     <div class="cart-page-header mb-3">
         {% if cart_items %}
             {% if total_items == 1 %}
@@ -25,34 +25,46 @@
         {% for item in cart_items %}
         <article class="card border-dark-subtle shadow-sm cart-item-card">
             <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
-                    <div>
-                        <h4 class="h5 mb-1"><a class="order-item-link" href="{{ url_for('shop.product_page', book_id=item.book['id']) }}">{{ item.book["title"] }}</a></h4>
-                        <p class="mb-1">{{ item.book["author"] }}</p>
-                        <p class="mb-0 text-body-secondary">{{ item.unit_price }} per stuk</p>
-                    </div>
-                    <form method="post" action="{{ url_for('cart.cart_remove', book_id=item.book['id']) }}">
-                        {{ csrf_field() }}
-                        <button class="btn btn-orange btn-sm cart-remove-button" type="submit">Verwijder</button>
-                    </form>
-                </div>
+                <div class="d-flex align-items-start gap-3 cart-item-top">
+                    <a class="cart-book-cover-link" href="{{ url_for('shop.product_page', book_id=item.book['id']) }}" aria-label="Bekijk {{ item.book['title'] }}">
+                        <div class="book-cover-placeholder cart-book-cover" role="img" aria-label="Placeholder afbeelding voor {{ item.book['title'] }}">
+                            Foto boek
+                        </div>
+                    </a>
 
-                <form class="cart-item-form mt-3" method="post" action="{{ url_for('cart.cart_update', book_id=item.book['id']) }}">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="auto_update" value="1">
-                    <label class="form-label mb-1" for="quantity-{{ item.book['id'] }}">Aantal</label>
-                    <input
-                        id="quantity-{{ item.book['id'] }}"
-                        type="number"
-                        name="quantity"
-                        min="0"
-                        max="99"
-                        value="{{ item.quantity }}"
-                        class="form-control cart-quantity-input"
-                        inputmode="numeric"
-                        aria-label="Aantal voor {{ item.book['title'] }}"
-                    >
-                </form>
+                    <div class="cart-item-vertical-divider" aria-hidden="true"></div>
+
+                    <div class="cart-item-copy">
+                        <div class="cart-item-copy-header">
+                            <div class="cart-item-copy-spacer"></div>
+                            <form method="post" action="{{ url_for('cart.cart_remove', book_id=item.book['id']) }}">
+                                {{ csrf_field() }}
+                                <button class="btn btn-orange btn-sm cart-remove-button" type="submit">Verwijder</button>
+                            </form>
+                        </div>
+                        <div class="cart-item-copy-body">
+                            <h4 class="h5 mb-1"><a class="order-item-link" href="{{ url_for('shop.product_page', book_id=item.book['id']) }}">{{ item.book["title"] }}</a></h4>
+                            <p class="mb-1">{{ item.book["author"] }}</p>
+                            <p class="mb-0 text-body-secondary">{{ item.unit_price }} per stuk</p>
+                            <form class="cart-item-form mt-2" method="post" action="{{ url_for('cart.cart_update', book_id=item.book['id']) }}">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="auto_update" value="1">
+                                <label class="form-label mb-1" for="quantity-{{ item.book['id'] }}">Aantal</label>
+                                <input
+                                    id="quantity-{{ item.book['id'] }}"
+                                    type="number"
+                                    name="quantity"
+                                    min="0"
+                                    max="99"
+                                    value="{{ item.quantity }}"
+                                    class="form-control cart-quantity-input"
+                                    inputmode="numeric"
+                                    aria-label="Aantal voor {{ item.book['title'] }}"
+                                >
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
                 <p class="cart-line-total mt-3 mb-0"><strong>Totaal:</strong> {{ item.line_total }}</p>
             </div>

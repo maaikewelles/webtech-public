@@ -11,7 +11,7 @@ def create_order_for_user(
     total_cents: int,
     checkout_details: dict[str, str],
 ) -> int:
-    # eerst orderknop wegschrijven en daarna losse orderregels toevoegen
+    """eerst orderknop wegschrijven en daarna losse orderregels toevoegen."""
     db = get_db()
     cursor = db.execute(
         """
@@ -65,7 +65,7 @@ def create_order_for_user(
 
 
 def list_user_orders(user_id: int, limit: int | None = None) -> list[dict[str, Any]]:
-    # combineren van order- en itemregels tot compacte cards voor de accountweergave
+    """combineren van order- en itemregels tot compacte cards voor de accountweergave."""
     query = (
         "SELECT id, user_id, status, total_cents, created_at FROM orders "
         "WHERE user_id = ? ORDER BY id DESC"
@@ -123,7 +123,7 @@ def list_user_orders(user_id: int, limit: int | None = None) -> list[dict[str, A
 
 
 def list_all_orders() -> list[dict[str, Any]]:
-    # hier wordt een admin-overzicht gebouwd met alle orderdetails en gegroepeerde items per bestelling
+    """hier wordt een admin-overzicht gebouwd met alle orderdetails en gegroepeerde items per bestelling."""
     order_rows = get_db().execute(
         """
         SELECT
@@ -202,6 +202,7 @@ def list_all_orders() -> list[dict[str, Any]]:
 
 
 def get_order_by_id(order_id: int) -> sqlite3.Row | None:
+    """ophalen van de order header nodig voor admin acties."""
     return get_db().execute(
         "SELECT id, user_id FROM orders WHERE id = ?",
         (order_id,),
@@ -209,12 +210,14 @@ def get_order_by_id(order_id: int) -> sqlite3.Row | None:
 
 
 def delete_order(order_id: int) -> None:
+    """verwijderen van een bestelling en laten cascaderen naar gerelateerde rijen."""
     db = get_db()
     db.execute("DELETE FROM orders WHERE id = ?", (order_id,))
     db.commit()
 
 
 def update_order_status(order_id: int, status: str) -> None:
+    """updaten van statusveld voor één bestelling."""
     db = get_db()
     db.execute("UPDATE orders SET status = ? WHERE id = ?", (status, order_id))
     db.commit()

@@ -58,3 +58,7 @@
     background-color: var(--color-btn);
 }
 
+.page-card.page-card-strong-border {
+    border: var(--border-strong);
+}
+
