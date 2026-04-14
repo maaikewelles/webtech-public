@@ -102,3 +102,17 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 - **Shop-filters**: In de webshop kan de gebruiker boeken filteren op genre, taal en prijs
 - **Zoekfunctionaliteit**: Een boek kan worden gevonden op basis van titel, auteur en ISBN via de zoekfunctie
 - **CSRF-bescherming**: Alle formulieren zijn beveiligd tegen CSRF (Cross-Site Request Forgery) aanvallen door middel van CSRF-tokens
+
+## Bronvermelding
+
+Onderstaande bronnen zijn gebruikt om te leren over Flask, Jinja, Bootstrap et cetera naast lesmateriaal vanuit de Hanze.
+- [text](https://flask.palletsprojects.com/en/stable/quickstart/#)
+- [text](https://www.codecademy.com/learn/learn-flask-jinja2-templates-and-forms)
+- [text](https://flask.palletsprojects.com/en/stable/blueprints/)
+- [text](https://flask.palletsprojects.com/en/stable/patterns/flashing/)
+- [text](https://medium.com/@olikorma/how-i-build-a-shopping-cart-using-python-flask-and-mysql-722bdfb98d1e)
+- [text](https://getbootstrap.com/docs/4.0/utilities/spacing/)
+- [text](https://getbootstrap.com/docs/4.0/components/buttons/)
+- [text](https://getbootstrap.com/docs/4.0/components/card/)
+- [text](https://getbootstrap.com/docs/4.0/components/carousel/)
+- [text](https://getbootstrap.com/docs/4.0/components/pagination/)
