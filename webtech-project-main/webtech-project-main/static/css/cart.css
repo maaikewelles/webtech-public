@@ -1,0 +1,38 @@
+/* style voor cart en checkout */
+.cart-page .cart-page-card {
+    gap: 1rem;
+}
+
+.page-card.cart-page-card {
+    border: var(--border-subtle);
+    gap: 1rem;
+}
+
+.cart-page .cart-item-form {
+    max-width: 96px;
+}
+
+.cart-page .cart-summary-box {
+    background-color: var(--color-surface);
+}
+
+.cart-page .cart-remove-button,
+.cart-page .cart-clear-button {
+    white-space: nowrap;
+}
+
+.cart-page .cart-checkout-button {
+    white-space: nowrap;
+}
+
+.cart-page .cart-auto-update-note {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+}
+
+.page-card .orders-back-btn {
+    display: inline-flex;
+    width: fit-content;
+}
+

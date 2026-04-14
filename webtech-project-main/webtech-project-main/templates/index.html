@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<div id="bookshopCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#bookshopCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#bookshopCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#bookshopCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner" style="margin-top: 1rem;">
+        <div class="carousel-item active">
+            <div class="image-row">
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+1" alt="Photo 1"></div>
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+2" alt="Photo 2"></div>
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+3" alt="Photo 3"></div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="image-row">
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+4" alt="Photo 4"></div>
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+5" alt="Photo 5"></div>
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+6" alt="Photo 6"></div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="image-row">
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+7" alt="Photo 7"></div>
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+8" alt="Photo 8"></div>
+                <div class="image-card"><img src="https://via.placeholder.com/400x270?text=Photo+9" alt="Photo 9"></div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#bookshopCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#bookshopCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<section class="info-row">
+    <article class="info-about">
+        <h4>Over</h4>
+        <p><b><i>Hoofdzaken &amp; Co</i></b> is een kleine onafhankelijke boekhandel gevestigd op de Zernike Campus. We verkopen <b>zelfhulpboeken</b> (<i>persoonlijke ontwikkeling, mentale gezondheid en praktische levensverbetering (financieel, huishoudelijk, professioneel), sociale wetenschappen, relaties, kookboeken en essays</i>).</p>
+
+        <p>In de ruimte naast catering Deliyo organiseren we regelmatig evenementen, zoals boekpresentaties, lezingen, workshops en literaire avonden.</p>
+    </article>
+    <aside class="info-hours">
+        <h4>Openingstijden</h4>
+        <ul>
+            <li>Maandag: 13:00 - 18:00</li>
+            <li>Dinsdag: 10:00 - 18:00</li>
+            <li>Woensdag: 10:00 - 18:00</li>
+            <li>Donderdag: 10:00 - 18:00</li>
+            <li>Vrijdag: 10:00 - 17:00</li>
+            <li>Zaterdag: Gesloten</li>
+            <li>Zondag: Gesloten</li>
+        </ul>
+    </aside>
+</section>
+
+<section id="webshop" class="info-row">
+    <article class="info-about">
+        <h4>Webshop</h4>
+        <p>Je kan boeken bestellen via deze webshop van Hoofdzaken &amp; Co. Natuurlijk kan je ook boeken bestellen per mail, telefoon of in de winkel. Het duurt meestal ongeveer 2 tot 3 werkdagen voordat je bestelling binnen is. Nederlandse boeken zijn meestal de volgende dag al in huis.</p>
+    </article>
+</section>
+
+<section id="cadeau-ideeën" class="info-row">
+    <article class="info-green">
+        <p><b>Disclaimer:</b> Geld uitgegeven bij Hoofdzaken &amp; Co wordt geïnvesteerd in nieuwe boeken voor Hoofdzaken &amp; Co, het dagelijks onderhoud van dierbaren en/of onze katten maar nooit in <a href="https://www.vice.com/en/article/4adeyq/how-to-stop-shopping-at-amazon">commerciële ruimtevaart</a>.</p>
+    </article>
+</section>
+
+{% endblock %}

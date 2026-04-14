@@ -1,0 +1,61 @@
+{% macro render_order_card(order, show_customer=false, delete_url=None, status_update_url=None, status_options=None) -%}
+<article class="card border-dark-subtle shadow-sm mb-3 order-item-card">
+    <div class="card-body">
+    {%- set status_class = "order-status-badge--default" %}
+    {%- if order["status"] == "In behandeling" %}
+    {%- set status_class = "order-status-badge--pending" %}
+    {%- elif order["status"] == "Verzonden" %}
+    {%- set status_class = "order-status-badge--shipped" %}
+    {%- elif order["status"] == "Afgeleverd" %}
+    {%- set status_class = "order-status-badge--delivered" %}
+    {%- elif order["status"] == "Geannuleerd" %}
+    {%- set status_class = "order-status-badge--cancelled" %}
+    {%- endif %}
+    <header class="d-flex justify-content-between align-items-center gap-2 mb-2 order-item-header">
+        <h4 class="h5 mb-0">{{ order["order_no"] }}</h4>
+        <span class="badge order-status-badge {{ status_class }}">{{ order["status"] }}</span>
+    </header>
+    {%- if show_customer %}
+    <p class="mb-1"><strong>Klant:</strong> {{ order["customer_name"] }} ({{ order["customer_email"] }})</p>
+    <p class="mb-1"><strong>Account:</strong> {{ order["user_name"] }} ({{ order["user_email"] }})</p>
+    <p class="mb-1"><strong>Adres:</strong> {{ order["address_line"] }}, {{ order["postal_code"] }} {{ order["city"] }}</p>
+    <p class="mb-1"><strong>Telefoon:</strong> {{ order["phone"] or "-" }}</p>
+    {%- if order["notes"] %}
+    <p class="mb-1"><strong>Opmerking:</strong> {{ order["notes"] }}</p>
+    {%- endif %}
+    {%- endif %}
+    <p class="mb-1"><strong>Datum:</strong> {{ order["date"] }}</p>
+    <p class="mb-2"><strong>Totaal:</strong> {{ order["total"] }}</p>
+    <p class="mb-1"><strong>Artikelen:</strong></p>
+    <div class="list-group list-group-flush order-item-list">
+        {%- for item in order["items"] %}
+        {%- if item is mapping and item.get("book_id") %}
+        <div class="list-group-item px-0 py-1 bg-transparent border-0 order-item">- <a class="order-item-link" href="{{ url_for('shop.product_page', book_id=item['book_id']) }}">{{ item["title"] }}</a></div>
+        {%- elif item is mapping %}
+        <div class="list-group-item px-0 py-1 bg-transparent border-0 order-item">- {{ item["title"] }}</div>
+        {%- else %}
+        <div class="list-group-item px-0 py-1 bg-transparent border-0 order-item">- {{ item }}</div>
+        {%- endif %}
+        {%- endfor %}
+    </div>
+    {%- if status_update_url and status_options %}
+    <form class="mt-2 d-flex flex-wrap gap-2 align-items-center" method="post" action="{{ status_update_url }}">
+        {{ csrf_field() }}
+        <label class="form-label mb-0" for="order-status-{{ order['id'] }}">Status</label>
+        <select class="form-select form-select-sm order-status-select" id="order-status-{{ order['id'] }}" name="status">
+            {%- for status in status_options %}
+            <option value="{{ status }}" {% if status == order["status"] %}selected{% endif %}>{{ status }}</option>
+            {%- endfor %}
+        </select>
+        <button class="btn btn-success btn-sm" type="submit">Opslaan</button>
+    </form>
+    {%- endif %}
+    {%- if delete_url %}
+    <form class="mt-2" method="post" action="{{ delete_url }}">
+        {{ csrf_field() }}
+        <button class="btn btn-orange btn-sm orders-delete-btn" type="submit">Verwijder bestelling</button>
+    </form>
+    {%- endif %}
+    </div>
+</article>
+{%- endmacro %}

@@ -1,0 +1,148 @@
+/* alles voor de profielpagina */
+.page-header {
+    margin: 0 0 1rem;
+}
+
+.page-header h2,
+.page-header h3 {
+    margin: 0 0 0.35rem;
+}
+
+.profile-layout {
+    align-items: stretch;
+}
+
+.profile-account-widget {
+    height: 100%;
+}
+
+.profile-card {
+    background-color: var(--color-card);
+}
+
+.profile-picture-section {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin: 0 0 1rem;
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-black);
+    background-color: var(--color-card-alt);
+}
+
+.profile-picture-form {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.profile-picture-form .btn {
+    width: fit-content;
+    justify-self: start;
+}
+
+.profile-picture-form input[type="file"] {
+    max-width: 100%;
+}
+
+.profile-list {
+    margin: 0 0 1rem;
+}
+
+.profile-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+}
+
+.profile-row dt {
+    font-weight: 700;
+}
+
+.profile-row dd {
+    margin: 0;
+}
+
+.profile-layout .admin-panel-link {
+    display: inline-flex;
+    width: fit-content;
+    align-self: start;
+    justify-self: start;
+}
+
+.profile-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.profile-action-row .profile-logout-form {
+    margin-top: 0;
+}
+
+.wishlist-panel {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.wishlist-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.wishlist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+    border: var(--border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-card);
+    padding: 0.45rem 0.55rem;
+}
+
+.wishlist-book-link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.wishlist-book-link:hover {
+    text-decoration: underline;
+}
+
+.wishlist-remove-btn {
+    margin-top: 0;
+}
+
+.wishlist-panel h4 {
+    margin: 0 0 0.25rem;
+}
+
+.wishlist-panel p {
+    margin: 0;
+}
+
+.wishlist-note {
+    color: var(--color-black);
+}
+
+.wishlist-view-shop {
+    display: inline-flex;
+    width: fit-content;
+    align-self: start;
+    justify-self: start;
+    text-decoration: none;
+    margin-top: 0.2rem;
+}

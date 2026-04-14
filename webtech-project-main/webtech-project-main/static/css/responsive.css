@@ -1,0 +1,78 @@
+/* responsive elementen */
+@media (min-width: 1200px) {
+    .page-wrapper {
+        width: 84%;
+    }
+}
+
+@media (max-width: 990px) {
+    .image-card {
+        margin-bottom: 0;
+    }
+
+    .shop-page .shop-product-actions {
+        border-left: 0;
+        padding-left: 0;
+        padding-top: 0.75rem;
+        border-top: var(--border-subtle);
+    }
+
+    .shop-page .shop-filter-sidebar {
+        position: static;
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .page-wrapper {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .navbar-nav {
+        gap: 0.6rem;
+    }
+
+    .info-row {
+        flex-direction: column;
+    }
+
+    .info-about,
+    .info-hours,
+    .info-green {
+        width: 100%;
+    }
+
+    .profile-row {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+    }
+
+    .profile-picture-section {
+        grid-template-columns: 1fr;
+    }
+
+    .flash-banner {
+        align-items: flex-start;
+    }
+
+    .shop-page .shop-product-cover-link {
+        justify-content: center;
+    }
+
+    .shop-page .book-cover-placeholder {
+        max-width: 170px;
+    }
+
+    .shop-page .shop-product-actions {
+        border-left: 0;
+        padding-left: 0;
+        border-top: var(--border-subtle);
+    }
+
+    .shop-page .shop-filter-actions {
+        max-width: none;
+    }
+}

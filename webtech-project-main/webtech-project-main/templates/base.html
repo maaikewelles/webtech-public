@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}Hoofdzaken &amp; Co{% endblock %}</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+		crossorigin="anonymous"
+	>
+</head>
+<body class="{{ body_class|default('') }}">
+	<div class="page-wrapper">
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-light bg-transparent site-nav">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="{{ url_for('index') }}">
+						<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Hoofdzaken &amp; Co." class="site-logo">
+					</a>
+
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarNav"
+						aria-controls="navbarNav"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="{{ url_for('shop.shop') }}">Webshop</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ url_for('shop.gifts') }}">Cadeau Ideeën</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+							</li>
+							<li class="nav-item nav-item-auth">
+								{% if current_user_email %}
+								<a class="nav-link" href="{{ url_for('account.profile') }}">MijnZaken</a>
+								{% else %}
+								<a class="nav-link" href="{{ url_for('auth.auth') }}">Inloggen</a>
+								{% endif %}
+							</li>
+							<li class="nav-item nav-icon-item">
+								<a class="nav-icon-link" href="{{ url_for('shop.search_page') }}" aria-label="Zoeken" title="Zoeken">
+									<img src="{{ url_for('static', filename='search.png') }}" alt="Zoeken" class="nav-icon-image">
+								</a>
+							</li>
+							<li class="nav-item nav-icon-item">
+								<a class="nav-icon-link" href="{{ url_for('cart.cart_page') }}" aria-label="Winkelmand" title="Winkelmand">
+									<img src="{{ url_for('static', filename='cart.png') }}" alt="Winkelmand" class="nav-icon-image">
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main class="content-main">
+			{% with flashes = get_flashed_messages(with_categories=true) %}
+			{% if flashes %}
+			<section class="flash-stack" aria-live="polite" aria-atomic="true">
+				{% for category, text in flashes %}
+				<article class="flash-banner flash-banner--{{ 'success' if category == 'success' else 'info' }}" role="status" data-autohide="true" data-autohide-ms="3600">
+					<p>{{ text }}</p>
+					<button type="button" class="flash-close" aria-label="Melding sluiten">&times;</button>
+				</article>
+				{% endfor %}
+			</section>
+			{% endif %}
+			{% endwith %}
+			{% block content %}{% endblock %}
+		</main>
+
+		<img src="{{ url_for('static', filename='divider.png') }}" alt="Divider" class="section-divider">
+
+		<footer>
+			<section class="info-row">
+				<article class="info-about">
+					<h5><strong>Vind ons op</strong></h5>
+					<p>
+						<strong>Hoofdzaken &amp; Co.</strong><br>
+						Zernikeplein 11<br>
+						9747 AS Groningen<br>
+						050-595 4500<br>
+						<a href="mailto:info@hoofdzaken.nl">info@hoofdzaken.nl</a>
+					</p>
+				</article>
+				<aside class="info-hours">
+					<h5><strong>Openingstijden</strong></h5>
+					<ul>
+						<li>Maandag: 13:00 - 18:00</li>
+						<li>Dinsdag: 10:00 - 18:00</li>
+						<li>Woensdag: 10:00 - 18:00</li>
+						<li>Donderdag: 10:00 - 18:00</li>
+						<li>Vrijdag: 10:00 - 17:00</li>
+						<li>Zaterdag: Gesloten</li>
+						<li>Zondag: Gesloten</li>
+					</ul>
+				</aside>
+			</section>
+		</footer>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"
+	></script>
+	<script>
+		(function () {
+			const dismissFlash = function (banner) {
+				if (!banner || banner.classList.contains("is-hiding")) {
+					return;
+				}
+				banner.classList.add("is-hiding");
+				window.setTimeout(function () {
+					banner.remove();
+				}, 220);
+			};
+
+			document.querySelectorAll(".flash-close").forEach(function (button) {
+				button.addEventListener("click", function () {
+					dismissFlash(button.closest(".flash-banner"));
+				});
+			});
+
+			document.querySelectorAll(".flash-banner[data-autohide='true']").forEach(function (banner) {
+				const ms = Number.parseInt(banner.getAttribute("data-autohide-ms") || "3600", 10);
+				window.setTimeout(function () {
+					dismissFlash(banner);
+				}, Number.isNaN(ms) ? 3600 : ms);
+			});
+		})();
+	</script>
+</body>
+</html>

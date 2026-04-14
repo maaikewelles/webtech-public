@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from "macros/orders.html" import render_order_card %}
+
+{% block title %}Overzicht van bestellingen - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h3 class="mb-2"><strong>Alle bestellingen</strong></h3>
+    <p class="mb-0">Hier zie je de bestellingen van alle gebruikers. Je kunt elke bestelling hier verwijderen of de status van verzending aanpassen, mocht dat nodig zijn.</p>
+</section>
+
+<section class="page-card">
+    {% if orders %}
+    {% for order in orders %}
+    {{ render_order_card(order, show_customer=true, delete_url=url_for('account.delete_order_route', order_id=order['id']), status_update_url=url_for('account.update_order_status_route', order_id=order['id']), status_options=status_options) }}
+    {% endfor %}
+    {% else %}
+    <p class="mb-3">Er zijn nog geen bestellingen geplaatst.</p>
+    {% endif %}
+
+    <a class="btn btn-success orders-back-btn" href="{{ url_for('account.profile') }}">Terug naar MijnZaken</a>
+</section>
+{% endblock %}

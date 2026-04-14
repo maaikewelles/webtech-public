@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Zoeken - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h3 class="mb-2"><strong>Zoeken</strong></h3>
+    <p class="mb-0">Zoek op titel, auteur, ISBN, genre of taal.</p>
+</section>
+
+<section class="card border-dark-subtle shadow-sm page-card">
+    <div class="card-body">
+        <form method="get" action="{{ url_for('shop.search_page') }}" class="row g-2 align-items-end mb-3">
+            <div class="col-12 col-md-8 col-lg-7">
+                <label class="form-label" for="search-query">Zoekterm</label>
+                <input
+                    class="form-control"
+                    id="search-query"
+                    name="q"
+                    type="search"
+                    value="{{ query_text|default('') }}"
+                    placeholder="Bijv. auteur, titel of ISBN"
+                >
+            </div>
+            <div class="col-12 col-md-auto d-flex gap-2">
+                <button class="btn btn-success" type="submit">Zoeken</button>
+                <a class="btn btn-outline-dark" href="{{ url_for('shop.search_page') }}">Reset</a>
+            </div>
+        </form>
+
+        {% if query_text %}
+            {% if results %}
+            <p class="mb-2">{{ results|length }} resultaat/resultaten voor <strong>{{ query_text }}</strong>.</p>
+            <div class="list-group list-group-flush">
+                {% for book in results %}
+                <article class="list-group-item px-0 py-2 bg-transparent border-0">
+                    <h3 class="h6 mb-1">
+                        <a class="order-item-link" href="{{ url_for('shop.product_page', book_id=book['id']) }}">{{ book["title"] }}</a>
+                    </h3>
+                    <p class="mb-1">{{ book["author"] }} | {{ book["genre"] }} | {{ book["language"] }}</p>
+                    <p class="mb-0 text-body-secondary">{{ book["price"] }}</p>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="mb-2">Geen resultaten voor <strong>{{ query_text }}</strong>. Mocht je dit boek graag willen terug zien in onze catalogus, neem dan gerust contact met ons op!</p>
+            {% endif %}
+        {% endif %}
+
+        <a class="btn btn-success orders-back-btn" href="{{ url_for('shop.shop') }}">Ga naar de webshop</a>
+    </div>
+</section>
+{% endblock %}

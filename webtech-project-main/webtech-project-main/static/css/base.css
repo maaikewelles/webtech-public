@@ -1,0 +1,69 @@
+/* algemene variabelen voor een soort huisstijl */
+:root {
+    --color-bg: #faf0e3;
+    --color-text: #000;
+    --color-black: #000;
+    --color-white: #fff;
+    --color-card: #fff4e8;
+    --color-card-alt: #f6e4d1;
+    --color-surface: #fffaf6;
+    --color-surface-soft: #f8efe6;
+    --color-surface-accent: #f8f2ed;
+    --color-placeholder: #f5ddc8;
+    --color-btn: #f0d4b5;
+    --color-btn-hover: #e8c39f;
+    --color-link: #bd412b;
+    --color-link-hover: #8d2f21;
+    --color-nav-hover: #276947;
+    --color-nav-hover-dark: #1f5538;
+    --color-orange: #c96a2f;
+    --color-orange-dark: #b85d27;
+    --color-red: #d4423f;
+    --color-muted: #4c3e36;
+    --color-muted-2: #5f5045;
+    --color-error: #8d2f21;
+    --shadow-sm: 0 3px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 5px 12px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 10px 22px rgba(0, 0, 0, 0.05);
+    --border-subtle: 1px solid rgba(0, 0, 0, 0.12);
+    --border-strong: 1px solid rgba(0, 0, 0, 0.25);
+    --focus-ring: 3px solid rgba(39, 105, 71, 0.38);
+    --focus-ring-offset: 2px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --border: 1px solid #000;
+}
+
+/* basis layout */
+html,
+body {
+    background-color: var(--color-bg) !important;
+    min-height: 100vh;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: inherit;
+    padding: 20px 0;
+}
+
+.page-wrapper {
+    width: 90%;
+    max-width: 1180px;
+    min-width: 320px;
+    margin: 0 auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 20px;
+}
+
+.content-main {
+    display: block;
+}
+
+.section-divider {
+    width: 100%;
+    margin: 2rem 0;
+}

@@ -1,0 +1,93 @@
+/* alles voor de cadeaupagina */
+.gifts-page {
+    --gifts-card-bg: var(--color-surface);
+    --gifts-copy: #2f261f;
+}
+
+.gifts-page .gifts-header {
+    margin: 0 0 1rem;
+}
+
+.gifts-page .gifts-header h2 {
+    margin: 0 0 0.35rem;
+}
+
+.gifts-page .gifts-header p {
+    margin: 0;
+    color: var(--gifts-copy);
+}
+
+.gifts-page .gifts-rows {
+    display: grid;
+    gap: 1rem;
+}
+
+.gifts-page .gifts-row-card {
+    background: var(--gifts-card-bg);
+}
+
+.gifts-page .gifts-row-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 650;
+}
+
+.gifts-page .gifts-book-grid {
+    margin-top: 0.25rem;
+}
+
+.gifts-page .gifts-book-card {
+    background: var(--color-white);
+}
+
+.gifts-page .gifts-book-cover-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.gifts-page .book-cover-placeholder {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 2 / 3;
+    background: var(--color-placeholder);
+}
+
+.gifts-page .gifts-book-card h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.gifts-page .gifts-book-author,
+.gifts-page .gifts-book-meta {
+    margin: 0;
+    font-size: 0.92rem;
+}
+
+.gifts-page .gifts-book-meta {
+    color: var(--color-muted-2);
+}
+
+.gifts-page .gifts-book-footer {
+    margin-top: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+}
+
+.gifts-page .gifts-book-price {
+    font-weight: 700;
+    color: var(--shop-price, #b35b2f);
+}
+
+.gifts-page .gifts-view-book {
+    text-decoration: none;
+    margin-top: 0;
+}
+
+@media (max-width: 990px) {
+    .gifts-page .gifts-book-footer {
+        flex-direction: column;
+        align-items: start;
+    }
+}

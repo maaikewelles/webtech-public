@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<iframe class="map-embed" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2387.7102709469423!2d6.530930112319344!3d53.240969772143245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c9cd1c7bd2590f%3A0xfb297391614ae056!2sZP11%20%2F%20Van%20Doorenveste!5e0!3m2!1snl!2snl!4v1774355116526!5m2!1snl!2snl" title="Locatie van Hoofdzaken &amp; Co op Google Maps" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<section class="info-row">
+    <article class="info-about">
+        <h4>Contact</h4>
+        <p><strong>Hoofdzaken &amp; Co.</strong> is gevestigd op de Zernike Campus, op de begane grond van de Van Doorneveste, <strong>Zernikeplein 11</strong> te <strong>Groningen</strong>.</p>
+
+        <p><b>Hoofdzaken &amp; Co.</b><br>
+        Zernikeplein 11, begane grond<br>
+        9747 AS Groningen<br>
+        050-595 4500<br>
+        <a href="mailto:info@hoofdzaken.nl">info@hoofdzaken.nl</a></p>
+
+        <p><i>Of bezoek ons hoofdkantoor:</i><br>
+        <strong>Hoofdzaken &amp; Kantoor</strong><br>
+        Zernikeplein 11, kamer A2.48<br>
+        9747 AS Groningen<br>
+        +31 50 595 48 92 <br>
+        <a href="mailto:info@hoofdzaken.nl">info@hoofdzaken.nl</a><br>
+        <a href="{{ url_for('index') }}">www.hoofdzakenenco.nl</a></p>
+    </article>
+</section>
+{% endblock %}

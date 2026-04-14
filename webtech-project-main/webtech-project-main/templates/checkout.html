@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Bestellen - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<section class="page-card checkout-page-card">
+    <header class="mb-3">
+        <h2 class="mb-1"><strong>Bestellen</strong></h2>
+        <p class="mb-0">Vul je gegevens in om je bestelling af te ronden.</p>
+    </header>
+
+    <div class="row g-3 align-items-start">
+        <div class="col-lg-7">
+            <div class="card border-dark-subtle">
+                <div class="card-body">
+                    <form class="row g-3" method="post" action="{{ url_for('cart.cart_checkout') }}">
+                        {{ csrf_field() }}
+                        <div class="col-12">
+                            <label class="form-label" for="customer_name">Naam *</label>
+                            <input class="form-control" id="customer_name" name="customer_name" type="text" value="{{ form_data.customer_name }}" required>
+                            {% if errors.customer_name %}<div class="text-danger small mt-1">{{ errors.customer_name }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="customer_email">E-mailadres *</label>
+                            <input class="form-control" id="customer_email" name="customer_email" type="email" value="{{ form_data.customer_email }}" required>
+                            {% if errors.customer_email %}<div class="text-danger small mt-1">{{ errors.customer_email }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="address_line">Adres *</label>
+                            <input class="form-control" id="address_line" name="address_line" type="text" value="{{ form_data.address_line }}" required>
+                            {% if errors.address_line %}<div class="text-danger small mt-1">{{ errors.address_line }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="postal_code">Postcode *</label>
+                            <input class="form-control" id="postal_code" name="postal_code" type="text" value="{{ form_data.postal_code }}" required>
+                            {% if errors.postal_code %}<div class="text-danger small mt-1">{{ errors.postal_code }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="city">Woonplaats *</label>
+                            <input class="form-control" id="city" name="city" type="text" value="{{ form_data.city }}" required>
+                            {% if errors.city %}<div class="text-danger small mt-1">{{ errors.city }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="phone">Telefoonnummer</label>
+                            <input class="form-control" id="phone" name="phone" type="tel" value="{{ form_data.phone }}">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="notes">Opmerkingen</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="4">{{ form_data.notes }}</textarea>
+                        </div>
+
+                        <div class="col-12 d-flex flex-wrap gap-2">
+                            <a class="btn btn-outline-dark cart-clear-button" href="{{ url_for('cart.cart_page') }}">Terug naar winkelmandje</a>
+                            <button class="btn btn-success cart-checkout-button" type="submit">Bestelling bevestigen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <aside class="col-lg-5">
+            <div class="card border-dark-subtle">
+                <div class="card-body">
+                    <p class="mb-2"><strong>Subtotaal:</strong> {{ subtotal }}</p>
+                    <div class="list-group list-group-flush">
+                        {% for item in cart_items %}
+                        <div class="list-group-item px-0 py-2 bg-transparent border-bottom-0">{{ item.quantity }}x {{ item.book["title"] }} - {{ item.line_total }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+{% endblock %}

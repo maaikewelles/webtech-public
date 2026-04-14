@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book["title"] }} - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<section class="product-detail" aria-label="Productdetail">
+    <div class="card border-dark-subtle shadow-sm product-detail-top">
+        <div class="card-body">
+            <div class="row g-2 align-items-start product-detail-row">
+                <div class="col-md-4 col-lg-3 product-detail-cover">
+                    <div class="book-cover-placeholder" role="img" aria-label="Placeholder afbeelding voor {{ book['title'] }}">
+                        Foto boek
+                    </div>
+                </div>
+
+                <aside class="col-md-8 col-lg-9 product-detail-actions">
+                    <h2 class="product-detail-title h3">{{ book["title"] }}</h2>
+                    <hr class="product-detail-divider">
+                    <p class="book-meta">{{ book["author"] }} | {{ book["genre"] }} | {{ book["language"] }} | {{ book["isbn"] }}</p>
+                    <p class="product-detail-binding">{{ book["binding"] }}</p>
+                    <p class="book-price">{{ book["price"] }}</p>
+                    <div class="product-detail-action-row">
+                        <form class="cart-add-form" method="post" action="{{ url_for('cart.cart_add', book_id=book['id']) }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="next" value="{{ request.url }}">
+                            <button class="btn btn-success shop-cart-button" type="submit">In winkelmandje</button>
+                        </form>
+                        {% if current_user.is_authenticated %}
+                        <form class="wishlist-toggle-form" method="post" action="{{ url_for('shop.wishlist_toggle', book_id=book['id']) }}">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="next" value="{{ request.url }}">
+                            <button
+                                class="shop-heart-button{% if is_wishlist_book %} is-active{% endif %}"
+                                type="submit"
+                                aria-label="{{ 'Verwijder uit wishlist' if is_wishlist_book else 'Toevoegen aan wishlist' }}"
+                            >
+                                ♥
+                            </button>
+                        </form>
+                        {% else %}
+                        <a class="shop-heart-link" href="{{ url_for('auth.auth', form='login') }}" aria-label="Log in om aan wishlist toe te voegen">♥</a>
+                        {% endif %}
+                    </div>
+                    <p class="shop-delivery"><strong>Verwachte bezorgtijd:</strong> {{ book["delivery"] }}</p>
+                    <p class="shop-stock"><strong>Winkelvoorraad:</strong> {{ book["stock"] }} stuks</p>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <section class="card border-dark-subtle product-detail-summary" aria-label="Samenvatting">
+        <div class="card-body">
+            <h3 class="h4 mb-2">Samenvatting</h3>
+            <p class="book-summary mb-0">{{ book["summary"] }}</p>
+        </div>
+    </section>
+
+    <div class="product-detail-back-wrap">
+        <a class="btn btn-success shop-back-button" href="{{ shop_url(page=request.args.get('page', 1)) }}">Terug naar webshop</a>
+    </div>
+</section>
+{% endblock %}

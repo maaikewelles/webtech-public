@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% from "macros/orders.html" import render_order_card %}
+
+{% block title %}Profiel - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h3 class="mb-2"><strong>MijnZaken</strong></h3>
+    <p class="mb-0">Hier vind je jouw accountgegevens voor Hoofdzaken &amp; Co.</p>
+</section>
+
+{% if message %}
+<section class="auth-message" role="status" aria-live="polite">
+    {{ message }}
+</section>
+{% endif %}
+
+<section class="profile-layout row g-3">
+    <section class="col-12">
+    <section class="card border-dark-subtle shadow-sm profile-card profile-account-widget">
+        <div class="card-body">
+        <section class="profile-picture-section">
+            <img class="profile-picture" src="{{ profile_image_url }}" alt="Profielfoto van {{ user['name'] }}">
+
+            <form method="post" action="{{ url_for('account.upload_profile_picture') }}" enctype="multipart/form-data" class="profile-picture-form">
+                {{ csrf_field() }}
+                <label class="form-label mb-1" for="profile-picture">Profielfoto kiezen</label>
+                <input class="form-control" id="profile-picture" name="profile_picture" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" required>
+                <button type="submit" class="btn btn-success">Foto uploaden</button>
+            </form>
+        </section>
+
+        <h4 class="h5"><strong>Accountgegevens</strong></h4>
+        <dl class="profile-list">
+            <div class="profile-row">
+                <dt>Naam</dt>
+                <dd>{{ user["name"] }}</dd>
+            </div>
+            <div class="profile-row">
+                <dt>E-mailadres</dt>
+                <dd>{{ user["email"] }}</dd>
+            </div>
+            {% if user["is_admin"] %}
+            <div class="profile-row">
+                <dt>Rol</dt>
+                <dd>Admin</dd>
+            </div>
+            {% endif %}
+            <div class="profile-row">
+                <dt>Lid sinds</dt>
+                <dd>{{ user["created_at"][:10] }}</dd>
+            </div>
+        </dl>
+
+        <div class="profile-action-row">
+            {% if user["is_admin"] %}
+            <a class="btn btn-success admin-panel-link" href="{{ url_for('account.admin_orders') }}">Admin panel</a>
+            {% endif %}
+
+            <form method="post" action="{{ url_for('auth.logout') }}" class="profile-logout-form">
+                {{ csrf_field() }}
+                <button type="submit" class="btn btn-orange">Uitloggen</button>
+            </form>
+        </div>
+        </div>
+    </section>
+    </section>
+
+    <section class="col-lg-6">
+    <section class="card border-dark-subtle shadow-sm profile-card profile-wishlist-widget wishlist-panel h-100">
+        <div class="card-body d-grid gap-2">
+        <h4 class="h5 mb-1"><strong>Wishlist</strong></h4>
+        {% if wishlist_books %}
+        <div class="wishlist-list">
+            {% for book in wishlist_books %}
+            <div class="wishlist-item">
+                <a class="wishlist-book-link" href="{{ url_for('shop.product_page', book_id=book['id']) }}">{{ book["title"] }}</a>
+                <form method="post" action="{{ url_for('shop.wishlist_toggle', book_id=book['id']) }}">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="next" value="{{ request.url }}">
+                    <button type="submit" class="btn btn-success btn-sm wishlist-remove-btn">Verwijder</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="mb-0">Je hebt nog geen boeken op je wishlist staan.</p>
+        <p class="wishlist-note">Bewaar boeken die je later wilt bekijken of kopen.</p>
+        <a class="btn btn-success wishlist-view-shop" href="{{ url_for('shop.shop', page=1) }}">Naar webshop</a>
+        {% endif %}
+        </div>
+    </section>
+    </section>
+
+    <aside class="col-lg-6">
+    <section class="card border-dark-subtle shadow-sm profile-orders-widget orders-panel h-100">
+        <div class="card-body d-grid gap-2">
+        <h4 class="h5 mb-1"><strong>Recente bestellingen</strong></h4>
+        {% if recent_orders %}
+        {% for order in recent_orders %}
+        {{ render_order_card(order) }}
+        {% endfor %}
+        {% else %}
+        <p class="mb-0">Je hebt nog geen bestellingen geplaatst.</p>
+        {% endif %}
+
+        <a class="btn btn-success orders-view-all" href="{{ url_for('account.orders') }}">Bekijk alle bestellingen</a>
+        </div>
+    </section>
+    </aside>
+</section>
+{% endblock %}

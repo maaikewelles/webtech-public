@@ -1,0 +1,11 @@
+/* gedeelde stijlelementen voor formulieren */
+.auth-form {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.auth-form input {
+    padding: 0.55rem 0.65rem;
+    border: var(--border);
+    border-radius: var(--radius-sm);
+}

@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}Webshop - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<section class="shop-header">
+	<h2><strong>Webshop</strong></h2>
+	<p>Duizenden boeken, eindeloos veel werelden. Van iconische klassiekers tot de laatste bestsellers, onze boekencollectie biedt verdieping, vermaak en verrijking voor elke nieuwsgierige lezer.</p>
+</section>
+
+<div class="shop-layout row g-3">
+	<aside class="shop-filter-sidebar col-lg-3" aria-label="Filter boeken">
+		<section class="card border-dark-subtle shop-filter-panel">
+			<div class="card-body">
+			<h3 class="h5 shop-filter-title">Filters</h3>
+			<form class="shop-filter-form" method="get" action="{{ url_for('shop.shop') }}">
+				<input type="hidden" name="page" value="1">
+
+				<fieldset class="shop-filter-group">
+					<legend>Genre</legend>
+					<label class="shop-filter-option">
+						<input type="radio" name="genre" value="all" {% if selected_genre == "all" %}checked{% endif %}>
+						<span>Alle genres</span>
+					</label>
+					{% for genre in available_genres %}
+					<label class="shop-filter-option">
+						<input type="radio" name="genre" value="{{ genre }}" {% if selected_genre == genre %}checked{% endif %}>
+						<span>{{ genre }}</span>
+					</label>
+					{% endfor %}
+				</fieldset>
+
+				<fieldset class="shop-filter-group">
+					<legend>Prijs</legend>
+					<label class="shop-filter-option">
+						<input type="radio" name="price" value="all" {% if selected_price == "all" %}checked{% endif %}>
+						<span>Alle prijzen</span>
+					</label>
+					<label class="shop-filter-option">
+						<input type="radio" name="price" value="under-15" {% if selected_price == "under-15" %}checked{% endif %}>
+						<span>Onder EUR 15</span>
+					</label>
+					<label class="shop-filter-option">
+						<input type="radio" name="price" value="15-20" {% if selected_price == "15-20" %}checked{% endif %}>
+						<span>EUR 15 t/m EUR 20</span>
+					</label>
+					<label class="shop-filter-option">
+						<input type="radio" name="price" value="20-plus" {% if selected_price == "20-plus" %}checked{% endif %}>
+						<span>Vanaf EUR 20</span>
+					</label>
+				</fieldset>
+
+				<fieldset class="shop-filter-group">
+					<legend>Taal</legend>
+					<label class="shop-filter-option">
+						<input type="radio" name="language" value="all" {% if selected_language == "all" %}checked{% endif %}>
+						<span>Alle talen</span>
+					</label>
+					{% for language in available_languages %}
+					<label class="shop-filter-option">
+						<input type="radio" name="language" value="{{ language }}" {% if selected_language == language %}checked{% endif %}>
+						<span>{{ language }}</span>
+					</label>
+					{% endfor %}
+				</fieldset>
+
+				<div class="shop-filter-actions">
+					<button class="btn btn-success shop-filter-button" type="submit">Filter toepassen</button>
+					<a class="btn btn-outline-dark shop-filter-reset" href="{{ shop_url(page=1, genre='all', language='all', price='all') }}">Reset</a>
+				</div>
+			</form>
+			<p class="shop-filter-summary">{{ books|length }} boeken zichtbaar op deze pagina van in totaal {{ total_pages }} pagina's.</p>
+			</div>
+		</section>
+	</aside>
+
+	<section class="shop-results col-lg-9" aria-label="Boekenoverzicht">
+		<section class="shop-product-list">
+			{% if books %}
+			{% for book in books %}
+			<article class="card border-dark-subtle shadow-sm shop-product-row">
+				<div class="card-body">
+					<div class="row g-3 align-items-start">
+						<div class="col-sm-4 col-md-3">
+							<a class="shop-product-cover-link" href="{{ shop_url(book_id=book['id']) }}" aria-label="Bekijk {{ book['title'] }}">
+								<div class="book-cover-placeholder" role="img" aria-label="Placeholder afbeelding voor {{ book['title'] }}">
+									Foto boek
+								</div>
+							</a>
+						</div>
+
+						<div class="col-sm-8 col-md-6 shop-product-copy">
+							<h4><a class="order-item-link" href="{{ shop_url(book_id=book['id']) }}">{{ book["title"] }}</a></h4>
+							<p class="book-author mb-1">{{ book["author"] }}</p>
+							<p class="book-meta">{{ book["isbn"] }} | {{ book["binding"] }} | {{ book["genre"] }} | {{ book["language"] }}</p>
+							<p class="book-summary">
+								{{ book["summary"] }}... <a href="{{ shop_url(book_id=book['id']) }}">lees meer</a>
+							</p>
+						</div>
+
+						<aside class="col-md-3 shop-product-actions">
+							<div class="shop-price-row">
+								<span class="book-price">{{ book["price"] }}</span>
+								{% if current_user.is_authenticated %}
+								<form class="wishlist-toggle-form" method="post" action="{{ url_for('shop.wishlist_toggle', book_id=book['id']) }}">
+									{{ csrf_field() }}
+									<input type="hidden" name="next" value="{{ request.url }}">
+									<button
+										class="shop-heart-button{% if book['id'] in wishlist_book_ids %} is-active{% endif %}"
+										type="submit"
+										aria-label="{{ 'Verwijder uit wenslijst' if book['id'] in wishlist_book_ids else 'Toevoegen aan wenslijst' }}"
+									>
+										♥
+									</button>
+								</form>
+								{% else %}
+								<a class="shop-heart-link" href="{{ url_for('auth.auth', form='login') }}" aria-label="Log in om aan wishlist toe te voegen">♥</a>
+								{% endif %}
+							</div>
+							<p class="shop-delivery"><strong>Verwachte bezorgtijd:</strong> {{ book["delivery"] }}</p>
+							<p class="shop-stock"><strong>Winkelvoorraad:</strong> {{ book["stock"] }} stuks</p>
+							<form class="cart-add-form" method="post" action="{{ url_for('cart.cart_add', book_id=book['id']) }}">
+								{{ csrf_field() }}
+								<input type="hidden" name="quantity" value="1">
+								<input type="hidden" name="next" value="{{ request.url }}">
+								<button class="btn btn-success w-100 shop-cart-button" type="submit">In winkelmandje</button>
+							</form>
+						</aside>
+					</div>
+				</div>
+			</article>
+			{% endfor %}
+			{% else %}
+			<article class="card border-dark-subtle shadow-sm shop-empty-state">
+				<div class="card-body">
+					<h4 class="h5">Geen boeken gevonden</h4>
+					<p class="mb-0">Pas de filters aan of reset ze om de volledige catalogus weer te zien.</p>
+				</div>
+			</article>
+			{% endif %}
+		</section>
+
+	</section>
+</div>
+
+<nav class="shop-pagination" aria-label="Webshop paginering">
+	{% for item in pager_items %}
+		{% if item.type == "ellipsis" %}
+		<span class="shop-page-ellipsis">{{ item.label }}</span>
+		{% elif item.type == "arrow" %}
+		<a class="btn btn-outline-dark shop-arrow-button" href="{{ shop_url(page=item.page) }}">{{ item.label }}</a>
+		{% elif item.current %}
+		<span class="shop-page-current" aria-current="page">{{ item.label }}</span>
+		{% else %}
+		<a class="btn btn-outline-dark" href="{{ shop_url(page=item.page) }}">{{ item.label }}</a>
+		{% endif %}
+	{% endfor %}
+</nav>
+{% endblock %}

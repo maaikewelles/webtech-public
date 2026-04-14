@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% macro auth_card(form_type) %}
+<article class="card border-dark-subtle shadow-sm auth-card">
+    <div class="card-body">
+    {% if form_type == "login" %}
+    <h3 class="h5 mb-3">Inloggen</h3>
+    <form method="post" action="{{ url_for('auth.auth', form='login') }}" class="auth-form row g-2">
+        <input type="hidden" name="form_type" value="login">
+        {{ csrf_field() }}
+
+        <label class="form-label mb-0" for="login-email">E-mailadres</label>
+        <input class="form-control" id="login-email" name="email" type="email" placeholder="bijv. naam@email.nl" required>
+
+        <label class="form-label mb-0 mt-1" for="login-password">Wachtwoord</label>
+        <input class="form-control" id="login-password" name="password" type="password" placeholder="Vul je wachtwoord in" required>
+
+        <button type="submit" class="btn btn-success">Inloggen</button>
+    </form>
+    {% else %}
+    <h3 class="h5 mb-3">Account aanmaken</h3>
+    <form method="post" action="{{ url_for('auth.auth', form='register') }}" class="auth-form row g-2">
+        <input type="hidden" name="form_type" value="register">
+        {{ csrf_field() }}
+
+        <label class="form-label mb-0" for="register-name">Naam</label>
+        <input class="form-control" id="register-name" name="name" type="text" placeholder="Voor- en achternaam" required>
+
+        <label class="form-label mb-0 mt-1" for="register-email">E-mailadres</label>
+        <input class="form-control" id="register-email" name="email" type="email" placeholder="bijv. naam@email.nl" required>
+
+        <label class="form-label mb-0 mt-1" for="register-password">Wachtwoord</label>
+        <input class="form-control" id="register-password" name="password" type="password" placeholder="Kies een sterk wachtwoord" required>
+
+        <button type="submit" class="btn btn-success">Account aanmaken</button>
+    </form>
+    {% endif %}
+    </div>
+</article>
+{% endmacro %}
+
+{% block title %}Inloggen en Account Aanmaken - Hoofdzaken &amp; Co{% endblock %}
+
+{% block content %}
+<section class="auth-header">
+    <h2 class="mb-1">Inloggen of account aanmaken</h2>
+    <p class="mb-0">Gebruik je bestaande account of maak een nieuw account aan.</p>
+</section>
+
+{% if message %}
+<section class="auth-message" role="status" aria-live="polite">
+    {{ message }}
+</section>
+{% endif %}
+
+{% if current_user_email %}
+<section class="auth-logged-in">
+    <p>Je bent ingelogd als <strong>{{ current_user_email }}</strong>.</p>
+    <form method="post" action="{{ url_for('auth.logout') }}">
+        {{ csrf_field() }}
+        <button type="submit" class="btn btn-outline-warning">Uitloggen</button>
+    </form>
+</section>
+{% else %}
+{% set form_order = ["register", "login"] if preferred_form == "register" else ["login", "register"] %}
+<section class="auth-grid row g-3">
+    {% for form_type in form_order %}
+    <div class="col-12 col-lg-6">{{ auth_card(form_type) }}</div>
+    {% endfor %}
+</section>
+{% endif %}
+{% endblock %}

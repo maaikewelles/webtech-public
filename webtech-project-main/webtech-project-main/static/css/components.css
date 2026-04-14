@@ -1,0 +1,60 @@
+/* gedeelde componenten */
+
+/* flash messages voor inloggen en uitloggen */
+.flash-stack {
+    margin: 0 0 1rem;
+    display: grid;
+    gap: 0.55rem;
+}
+
+.flash-banner {
+    border: var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-card-alt);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0.8rem;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.flash-banner p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.flash-banner--success {
+    border-left: 6px solid #2f7c56;
+}
+
+.flash-banner--info {
+    border-left: 6px solid #2d5f8f;
+}
+
+.flash-banner.is-hiding {
+    opacity: 0;
+    transform: translateY(-4px);
+}
+
+.flash-close {
+    border: var(--border);
+    background-color: var(--color-card);
+    color: var(--color-text);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.flash-close:hover {
+    background-color: var(--color-btn);
+}
+

@@ -1,0 +1,30 @@
+/* inlogpagina */
+.auth-header {
+    margin: 0 0 1.2rem;
+}
+
+.auth-header h2 {
+    margin: 0 0 0.4rem;
+}
+
+.auth-message {
+    margin: 0 0 1rem;
+    padding: 0.75rem 1rem;
+    border: var(--border);
+    background-color: var(--color-card-alt);
+}
+
+.auth-card {
+    background-color: var(--color-card);
+}
+
+.auth-card h3 {
+    margin-top: 0;
+}
+
+.auth-logged-in {
+    border: var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    background-color: var(--color-card);
+}

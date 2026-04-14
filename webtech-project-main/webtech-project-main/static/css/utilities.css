@@ -1,0 +1,71 @@
+/* gedeelde pagina-elementen */
+.info-row {
+    display: flex;
+    gap: 1rem;
+    margin: 0.2rem 0;
+}
+
+.info-about {
+    width: 66.666%;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.info-green {
+    width: 66.666%;
+    padding: 1rem;
+}
+
+.info-hours {
+    width: 33.333%;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.info-about h4,
+.info-hours h4,
+.info-about h5,
+.info-hours h5 {
+    margin-top: 0;
+    font-weight: 650;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+}
+
+.image-card {
+    flex: 1 1 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    max-width: 33.333%;
+}
+
+.image-card img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    height: 270px;
+}
+
+.map-embed {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 1rem;
+    border: 2px solid var(--color-black);
+}
+
+.image-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: stretch;
+    margin: 1.5rem 0;
+}
+
+p a {
+    color: var(--color-link);
+}
+
+p a:hover {
+    color: var(--color-link-hover);
+}
