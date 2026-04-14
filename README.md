@@ -105,14 +105,15 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 
 ## Bronvermelding
 
-Onderstaande bronnen zijn gebruikt om te leren over Flask, Jinja, Bootstrap et cetera naast lesmateriaal vanuit de Hanze.
-- [text](https://flask.palletsprojects.com/en/stable/quickstart/#)
-- [text](https://www.codecademy.com/learn/learn-flask-jinja2-templates-and-forms)
-- [text](https://flask.palletsprojects.com/en/stable/blueprints/)
-- [text](https://flask.palletsprojects.com/en/stable/patterns/flashing/)
-- [text](https://medium.com/@olikorma/how-i-build-a-shopping-cart-using-python-flask-and-mysql-722bdfb98d1e)
-- [text](https://getbootstrap.com/docs/4.0/utilities/spacing/)
-- [text](https://getbootstrap.com/docs/4.0/components/buttons/)
-- [text](https://getbootstrap.com/docs/4.0/components/card/)
-- [text](https://getbootstrap.com/docs/4.0/components/carousel/)
-- [text](https://getbootstrap.com/docs/4.0/components/pagination/)
+Onderstaande bronnen en documentatie zijn gebruikt om te leren over Flask, Jinja, Bootstrap et cetera naast lesmateriaal vanuit de Hanze.
+- [Officiële quickstart documentatie voor Flask](https://flask.palletsprojects.com/en/stable/quickstart/#)
+- [Jinja2 templates en forms](https://www.codecademy.com/learn/learn-flask-jinja2-templates-and-forms)
+- [Blueprints](https://flask.palletsprojects.com/en/stable/blueprints/)
+- [Flash messages met Flask](https://flask.palletsprojects.com/en/stable/patterns/flashing/)
+- [Inspiratie voor winkelmandje](https://medium.com/@olikorma/how-i-build-a-shopping-cart-using-python-flask-and-mysql-722bdfb98d1e)
+- [Bootstrap: Spacing](https://getbootstrap.com/docs/4.0/utilities/spacing/)
+- [Bootstrap: Buttons](https://getbootstrap.com/docs/4.0/components/buttons/)
+- [Bootstrap: Cards](https://getbootstrap.com/docs/4.0/components/card/)
+- [Bootstrap: Carousel](https://getbootstrap.com/docs/4.0/components/carousel/)
+- [Bootstrap: Pagination](https://getbootstrap.com/docs/4.0/components/pagination/)
+- [CSRF (Cross-Site Request Forgery)](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/CSRF)
