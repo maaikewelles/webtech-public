@@ -74,6 +74,7 @@ def get_placeholder_book(book_id: int, total_books: int = 71) -> dict[str, str |
 
 
 def init_books_db() -> None:
+    # aanmaken van de boektabellen aan en vul/herstel de voorbeelddata waar dat nodig is
     db = get_books_db()
     db.execute(
         """
@@ -159,6 +160,7 @@ def init_books_db() -> None:
 
 
 def build_book_filters(genre: str | None = None, language: str | None = None, price_filter: str | None = None) -> tuple[str, list[Any]]:
+    # hier worden filterkeuzes vertaald naar SQL where-clauses met parameters
     clauses: list[str] = []
     params: list[Any] = []
 

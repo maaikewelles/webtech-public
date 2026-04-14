@@ -95,6 +95,7 @@ __all__ = [
 
 
 def init_db() -> None:
+    # het maken van tabellen, migraties en de admin-gebruiker tijdens het opstarten
     db = get_db()
     db.execute(
         """

@@ -21,6 +21,7 @@ bp = Blueprint("shop", __name__)
 
 
 def safe_redirect(default_target: str) -> str:
+    # alleen toestaan van interne redirects, zodat gebruikers niet per ongeluk onverwachts naar een externe site gaan
     target = request.form.get("next") or request.args.get("next")
     if not target:
         return default_target
@@ -39,6 +40,7 @@ def safe_redirect(default_target: str) -> str:
 
 @bp.get("/shop")
 def shop() -> str:
+    # eerst valideren van filters en paginering, daarna pas het opbouwen van de query en weergavegegevens
     per_page = 20
     available_genres = list_book_genres()
     available_languages = list_book_languages()
@@ -141,6 +143,7 @@ def product_page(book_id: int) -> str:
 @bp.post("/wishlist/toggle/<int:book_id>")
 @login_required
 def wishlist_toggle(book_id: int):
+    # wisselen van de wishlist-status
     book = get_book_by_id(book_id)
     if book is None:
         abort(404)

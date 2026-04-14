@@ -117,6 +117,7 @@ def delete_order_route(order_id: int):
 @bp.post("/profile/picture")
 @login_required
 def upload_profile_picture():
+    # het valideren van de naam, extensie en binaire signatuur voordat de nieuwe profielfoto wordt opgeslagen
     user_id = current_user.id
 
     file = request.files.get("profile_picture")

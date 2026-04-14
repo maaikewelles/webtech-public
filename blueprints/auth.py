@@ -22,6 +22,7 @@ bp = Blueprint("auth", __name__)
 
 @bp.route("/auth", methods=["GET", "POST"])
 def auth() -> str:
+    # het afhandelen van login en registratie in één route zodat de template tussen beide formulieren kan schakelen
     message = None
     preferred_form = get_preferred_form(request.args.get("form", "login"))
 

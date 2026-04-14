@@ -44,6 +44,7 @@ def allowed_image_file(filename: str) -> bool:
 
 
 def is_valid_image_bytes(data: bytes, ext: str) -> bool:
+    # hier wordt de bestandsheader gecontroleerd in plaats van alleen de extensie
     ext = ext.lower()
     if ext == ".png":
         return data.startswith(b"\x89PNG\r\n\x1a\n")
@@ -77,6 +78,7 @@ def as_app_user(user: sqlite3.Row | None) -> AppUser | None:
 
 
 def get_profile_image_url(profile_image_filename: str | None) -> str:
+    # terugvallen op de standaardafbeelding als een geüploade profielfoto ontbreekt
     default_url = url_for("static", filename="default_profile.png")
     if not profile_image_filename:
         return default_url

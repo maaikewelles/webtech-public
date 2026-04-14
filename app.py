@@ -22,6 +22,7 @@ from core import (
 
 
 def create_app() -> Flask:
+    # hier wordt de app geconfigureerd, databases geïnitialiseerd en blueprints geregistreerd voordat de eerste request binnenkomt
     app = Flask(__name__)
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
     app.config["DATABASE"] = str(Path(app.instance_path) / "users.db")
@@ -71,6 +72,7 @@ def create_app() -> Flask:
 
     @app.context_processor
     def inject_csrf_token():
+        # één CSRF-token per sessie bewaren en gelijk daarvan een hidden form maken
         def csrf_token() -> str:
             token = session.get("csrf_token")
             if not token:
@@ -85,6 +87,7 @@ def create_app() -> Flask:
 
     @app.before_request
     def validate_csrf_token():
+        # het verwerpen van POST-verzoeken zonder een geldig sessie-token om formulierinvoer te beveiligen
         if request.method != "POST":
             return None
 
@@ -97,6 +100,7 @@ def create_app() -> Flask:
 
     @app.context_processor
     def inject_shop_url_builder():
+        # het bouwen van shop-linkjes die actieve filters behouden tussen overzichten en productpagina's
         def shop_url(page: int | None = None, book_id: int | None = None, genre: str | None = None, language: str | None = None, price: str | None = None) -> str:
             params = {key: value for key, value in request.args.items() if key in {"genre", "language", "price", "page"} and value}
 

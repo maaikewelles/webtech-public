@@ -23,3 +23,6 @@
 - Totaal en subtotaal staat volgens mij omgekeerd
 - "Terug naar winkelmandje" moet nog oranje worden qua stijl
 - Dikkere rand rondom card bestelpagina + winkelmandje
+
+## Comments
+- COMMENTS! COMMENTS! COMMENTS!

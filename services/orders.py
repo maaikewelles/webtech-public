@@ -11,6 +11,7 @@ def create_order_for_user(
     total_cents: int,
     checkout_details: dict[str, str],
 ) -> int:
+    # eerst orderknop wegschrijven en daarna losse orderregels toevoegen
     db = get_db()
     cursor = db.execute(
         """
@@ -64,6 +65,7 @@ def create_order_for_user(
 
 
 def list_user_orders(user_id: int, limit: int | None = None) -> list[dict[str, Any]]:
+    # combineren van order- en itemregels tot compacte cards voor de accountweergave
     query = (
         "SELECT id, user_id, status, total_cents, created_at FROM orders "
         "WHERE user_id = ? ORDER BY id DESC"
@@ -121,6 +123,7 @@ def list_user_orders(user_id: int, limit: int | None = None) -> list[dict[str, A
 
 
 def list_all_orders() -> list[dict[str, Any]]:
+    # hier wordt een admin-overzicht gebouwd met alle orderdetails en gegroepeerde items per bestelling
     order_rows = get_db().execute(
         """
         SELECT

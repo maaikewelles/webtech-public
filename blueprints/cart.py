@@ -12,6 +12,7 @@ CART_SESSION_KEY = "cart"
 
 
 def get_cart() -> dict[str, int]:
+    # het normaliseren van de winkelmand per sessie zodat er alleen geldige boek-id's en aantallen overblijven
     raw_cart = session.get(CART_SESSION_KEY, {})
     if not isinstance(raw_cart, dict):
         return {}
@@ -76,6 +77,7 @@ def update_cart_quantity(book_id: int, quantity: int) -> None:
 
 
 def build_cart_items() -> tuple[list[dict[str, object]], int, int]:
+    # hier wordt de winkelmand uit de database gebouwd en prijsgegevens worden berekend; als er boeken ontbreken worden deze automatisch uit de mand verwijderd
     cart = get_cart()
     cart_items: list[dict[str, object]] = []
     total_items = 0
@@ -177,6 +179,7 @@ def cart_clear():
 @bp.route("/cart/checkout", methods=["GET", "POST"])
 @login_required
 def cart_checkout():
+    # het eerst tonen van het formulier met ingevulde standaardwaarden; daarna pas de bestelling verwerken en valideren bij een POST-verzoek
     cart_items, total_items, subtotal_cents = build_cart_items()
     if not cart_items:
         flash("Je winkelmandje is leeg.", "info")
