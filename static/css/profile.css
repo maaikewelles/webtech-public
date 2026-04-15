@@ -51,6 +51,23 @@
     max-width: 100%;
 }
 
+.profile-picture-input {
+    display: block;
+    width: 360px !important;
+    max-width: 100% !important;
+    min-width: 0;
+}
+
+.profile-picture-input::file-selector-button {
+    margin-right: 0.75rem;
+    padding: 0.45rem 0.8rem;
+    border: var(--border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-card-alt);
+    color: var(--color-black);
+    cursor: pointer;
+}
+
 .profile-list {
     margin: 0 0 1rem;
 }
@@ -93,6 +110,28 @@
     gap: 0.45rem;
 }
 
+.wishlist-panel .card-body {
+    align-content: start;
+    grid-auto-rows: min-content;
+}
+
+.wishlist-card-empty {
+    grid-template-rows: auto 1fr auto;
+}
+
+.wishlist-empty-copy {
+    align-self: start;
+}
+
+.wishlist-empty-copy .wishlist-note {
+    margin-top: 0.35rem;
+}
+
+.wishlist-view-shop {
+    align-self: end;
+    justify-self: start;
+}
+
 .wishlist-list {
     list-style: none;
     margin: 0;
@@ -106,6 +145,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.7rem;
+    height: 3.25rem;
+    min-height: 3.25rem;
+    overflow: hidden;
     border: var(--border);
     border-radius: var(--radius-sm);
     background-color: var(--color-card);
@@ -113,9 +155,17 @@
 }
 
 .wishlist-book-link {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: inherit;
     text-decoration: none;
     font-weight: 600;
+}
+
+.wishlist-item form {
+    flex: 0 0 auto;
 }
 
 .wishlist-book-link:hover {

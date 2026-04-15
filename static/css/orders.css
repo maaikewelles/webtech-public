@@ -27,7 +27,7 @@
 .page-card {
     border: var(--border-subtle);
     border-radius: var(--radius-md);
-    background-color: var(--color-surface);
+    background-color: var(--color-white);
     box-shadow: var(--shadow-sm);
     padding: 1rem;
 }
@@ -39,6 +39,11 @@
 .page-card .order-status-select {
     width: auto;
     min-width: 180px;
+}
+
+.admin-orders-panel,
+.admin-orders-panel .order-item-card {
+    background-color: var(--color-white);
 }
 
 .order-status-badge {

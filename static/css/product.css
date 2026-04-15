@@ -5,7 +5,7 @@
 }
 
 .shop-page .product-detail-top {
-    background: var(--color-surface);
+    background: var(--color-white);
 }
 
 .shop-page .product-detail-cover {
@@ -33,6 +33,7 @@
 .shop-page .product-detail-title {
     margin: 0;
     line-height: 1.2;
+    font-weight: 650;
 }
 
 .shop-page .product-detail-divider {
@@ -78,11 +79,12 @@
 
 .shop-page .product-detail-summary {
     margin-top: 0;
-    background: var(--color-surface);
+    background: var(--color-white);
 }
 
 .shop-page .product-detail-summary h3 {
     margin: 0 0 0.5rem;
+    font-weight: 650;
 }
 
 .shop-page .product-detail-summary .book-summary {

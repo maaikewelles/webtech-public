@@ -9,7 +9,7 @@
     <p class="mb-0">Hier zie je de bestellingen van alle gebruikers. Je kunt elke bestelling hier verwijderen of de status van verzending aanpassen, mocht dat nodig zijn.</p>
 </section>
 
-<section class="page-card page-card-strong-border">
+<section class="page-card page-card-strong-border admin-orders-panel">
     {% if orders %}
     {% for order in orders %}
     {{ render_order_card(order, show_customer=true, delete_url=url_for('account.delete_order_route', order_id=order['id']), status_update_url=url_for('account.update_order_status_route', order_id=order['id']), status_options=status_options) }}

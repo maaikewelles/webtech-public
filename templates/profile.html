@@ -25,7 +25,7 @@
             <form method="post" action="{{ url_for('account.upload_profile_picture') }}" enctype="multipart/form-data" class="profile-picture-form">
                 {{ csrf_field() }}
                 <label class="form-label mb-1" for="profile-picture">Profielfoto kiezen</label>
-                <input class="form-control" id="profile-picture" name="profile_picture" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" required>
+                <input class="form-control profile-picture-input" id="profile-picture" name="profile_picture" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" required>
                 <button type="submit" class="btn btn-success">Foto uploaden</button>
             </form>
         </section>
@@ -68,7 +68,7 @@
 
     <section class="col-lg-6">
     <section class="card border-dark-subtle shadow-sm profile-card profile-wishlist-widget wishlist-panel h-100">
-        <div class="card-body d-grid gap-2">
+        <div class="card-body d-grid gap-2{% if not wishlist_books %} wishlist-card-empty{% endif %}">
         <h4 class="h5 mb-1"><strong>Wishlist</strong></h4>
         {% if wishlist_books %}
         <div class="wishlist-list">
@@ -84,8 +84,10 @@
             {% endfor %}
         </div>
         {% else %}
-        <p class="mb-0">Je hebt nog geen boeken op je wishlist staan.</p>
-        <p class="wishlist-note">Bewaar boeken die je later wilt bekijken of kopen.</p>
+        <div class="wishlist-empty-copy">
+            <p class="mb-0">Je hebt nog geen boeken op je wishlist staan.</p>
+            <p class="wishlist-note">Bewaar boeken die je later wilt bekijken of kopen.</p>
+        </div>
         <a class="btn btn-success wishlist-view-shop" href="{{ url_for('shop.shop', page=1) }}">Naar webshop</a>
         {% endif %}
         </div>

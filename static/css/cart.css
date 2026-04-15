@@ -1,10 +1,11 @@
 /* style voor cart en checkout */
 .cart-page .cart-page-card {
     gap: 1rem;
+    background-color: var(--color-white);
 }
 
 .page-card.cart-page-card {
-    border: var(--border-subtle);
+    border: var(--border-strong);
     gap: 1rem;
 }
 
@@ -69,8 +70,15 @@
     max-width: 96px;
 }
 
+.cart-page .cart-item-card,
+.cart-page .cart-summary-box,
+.checkout-page-card .card {
+    background-color: var(--color-white);
+    border: var(--border-strong);
+}
+
 .cart-page .cart-summary-box {
-    background-color: var(--color-surface);
+    background-color: var(--color-white);
 }
 
 .cart-page .cart-remove-button,

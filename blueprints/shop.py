@@ -107,11 +107,11 @@ def shop() -> str:
 @bp.get("/gifts")
 def gifts() -> str:
     prompt_rows = [
-        "Inspiratie voor de Excel-nerd met liefde voor boekhouding...",
-        "Inspiratie voor de crazy cat lady met 17 katten...",
-        "Inspiratie voor de toekomstige dokter...",
-        "Inspiratie voor degene die 24/7 aan het Romeinse Rijk denkt...",
+        "Inspiratie voor degene die moeite heeft met zich houden aan nieuwjaarsresoluties...",
         "Inspiratie voor de romanticus die beter wil leren luisteren...",
+        "Inspiratie voor degene die bezig is met persoonlijke groei en zelfinzicht...",
+        "Inspiratie voor degene die wil leren over neurodiversiteit...",
+        "Inspiratie voor degene wiens innerlijke filosoof steeds meer naar boven komt...",
     ]
     gift_books = list_books(limit=20)
     gift_rows: list[dict[str, object]] = []

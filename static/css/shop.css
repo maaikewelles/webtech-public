@@ -29,7 +29,7 @@
 
 .shop-page .shop-filter-panel {
     margin: 0.5rem 0 0;
-    background: var(--color-surface);
+    background: var(--color-white);
     box-shadow: none;
 }
 
@@ -150,11 +150,11 @@
 }
 
 .shop-page .shop-product-row {
-    background: var(--color-surface);
+    background: var(--color-white);
 }
 
 .shop-page .shop-empty-state {
-    background: var(--color-surface);
+    background: var(--color-white);
 }
 
 .shop-page .shop-empty-state h4 {

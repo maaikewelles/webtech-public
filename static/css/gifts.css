@@ -1,6 +1,6 @@
 /* alles voor de cadeaupagina */
 .gifts-page {
-    --gifts-card-bg: var(--color-surface);
+    --gifts-card-bg: var(--color-white);
     --gifts-copy: #2f261f;
 }
 

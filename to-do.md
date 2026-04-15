@@ -12,9 +12,7 @@
 - Error pagina als een boek niet gevonden is via een route
 - Evt. gebruikers hun account laten verwijderen?
 - Webshop aanvullen met filters zoals sorteren op alfabetische volgorde
-- Auth knoppen stuk minder breed
-- "Bestand uploaden" profielfoto minder breed
-- Rijen in wishlist moeten een vaste hoogte hebben en niet "veranderen" daarin
+- Euroteken in plaats van EUR
 
 ## Comments
 - COMMENTS! COMMENTS! COMMENTS!

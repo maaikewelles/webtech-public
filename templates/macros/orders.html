@@ -51,7 +51,7 @@
     </form>
     {%- endif %}
     {%- if delete_url %}
-    <form class="mt-2" method="post" action="{{ delete_url }}">
+    <form class="mt-2" method="post" action="{{ delete_url }}" onsubmit="return confirm('Weet je zeker dat je deze bestelling wilt verwijderen?');">
         {{ csrf_field() }}
         <button class="btn btn-orange btn-sm orders-delete-btn" type="submit">Verwijder bestelling</button>
     </form>

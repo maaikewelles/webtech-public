@@ -9,3 +9,14 @@
     border: var(--border);
     border-radius: var(--radius-sm);
 }
+
+.auth-form .auth-submit {
+    display: inline-flex;
+    width: auto;
+    max-width: max-content;
+    min-width: 0;
+    align-self: start;
+    justify-self: start;
+    flex: 0 0 auto;
+    padding-inline: 0.8rem;
+}
