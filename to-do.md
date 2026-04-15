@@ -1,9 +1,8 @@
 # To-do list
 
 ## Database
-- Zeg maar gerust de gehele SQLite database
-- Lijst met titels (71? of 51) en data
 - Foto's vd boeken
+- koppeling met SQLAlchemy
 
 ## Cadeau Ideeën-pagina
 - Foto's producten
@@ -13,6 +12,9 @@
 - Carousel aanvullen (index.html)
 - Error pagina als een boek niet gevonden is via een route
 - Evt. gebruikers hun account laten verwijderen?
+- Webshop aanvullen met filters zoals sorteren op alfabetische volgorde
+- Auth knoppen stuk minder breed
+- "Bestand uploaden" profielfoto minder breed
 
 ## Comments
 - COMMENTS! COMMENTS! COMMENTS!

@@ -41,7 +41,7 @@ def safe_redirect(default_target: str) -> str:
 @bp.get("/shop")
 def shop() -> str:
     # eerst valideren van filters en paginering, daarna pas het opbouwen van de query en weergavegegevens
-    per_page = 20
+    per_page = 15
     available_genres = list_book_genres()
     available_languages = list_book_languages()
     wishlist_book_ids: set[int] = set()

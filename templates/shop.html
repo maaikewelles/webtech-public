@@ -94,7 +94,7 @@
 							<p class="book-author mb-1">{{ book["author"] }}</p>
 							<p class="book-meta">{{ book["isbn"] }} | {{ book["binding"] }} | {{ book["genre"] }} | {{ book["language"] }}</p>
 							<p class="book-summary">
-								{{ book["summary"] }}... <a href="{{ shop_url(book_id=book['id']) }}">lees meer</a>
+								{{ book["summary"]|truncate(150, False, '...') }} <a href="{{ shop_url(book_id=book['id']) }}">meer lezen</a>
 							</p>
 						</div>
 

@@ -117,3 +117,5 @@ Onderstaande bronnen en documentatie zijn gebruikt om te leren over Flask, Jinja
 - [Bootstrap: Carousel](https://getbootstrap.com/docs/4.0/components/carousel/)
 - [Bootstrap: Pagination](https://getbootstrap.com/docs/4.0/components/pagination/)
 - [CSRF (Cross-Site Request Forgery)](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/CSRF)
+- [urllib.parse — Parse URLs into component](https://docs.python.org/3/library/urllib.parse.html)
+- [MarkupSafe Documentatie](https://markupsafe.palletsprojects.com/en/stable/)

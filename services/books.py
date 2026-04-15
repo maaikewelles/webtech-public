@@ -1,16 +1,20 @@
 import sqlite3
+from hashlib import sha256
+from pathlib import Path
 from typing import Any
 
 from services.db import get_books_db
 
 
-BOOK_GENRES = ["Algemeen", "Financien", "Gezondheid", "Mindfulness", "Psychologie", "Relaties", "Zelfontwikkeling"]
+BOOK_GENRES = ["Algemeen", "Filosofie", "Financien", "Gezondheid", "Mindfulness", "Neurodiversiteit", "Psychologie", "Relaties", "Zelfontwikkeling"]
 BOOK_PRICE_FILTERS: dict[str, tuple[int | None, int | None]] = {
     "all": (None, None),
     "under-15": (None, 1499),
     "15-20": (1500, 1999),
     "20-plus": (2000, None),
 }
+
+BOOKS_SEED_SQL_PATH = Path(__file__).resolve().parent.parent / "data" / "books_seed.sql"
 
 
 def format_price_cents(price_cents: int) -> str:
@@ -37,49 +41,31 @@ def normalize_book_genre(genre: str | None) -> str:
     return normalized_genre if normalized_genre else "Algemeen"
 
 
-def build_placeholder_books(total_books: int = 71) -> list[dict[str, str | int]]:
-    """genereren van een seeded placeholder catalogus gebruikt voor de lokale boekendatabase."""
-    books: list[dict[str, str | int]] = []
-    for index in range(1, total_books + 1):
-        genre = BOOK_GENRES[(index - 1) % len(BOOK_GENRES)]
-        binding = "paperback" if index % 2 else "hardcover"
-        language = "Nederlands" if index % 3 else "Engels"
-        stock = 4 + (index % 7)
-        delivery_days = 1 + (index % 3)
-        price_cents = (12 + (index % 17)) * 100 + 95
-
-        books.append(
-            {
-                "id": index,
-                "title": f"Book {index}",
-                "author": f"Auteur {index}",
-                "isbn": f"978-1-4028-{index:05d}",
-                "binding": binding,
-                "language": language,
-                "genre": genre,
-                "summary": (
-                    "Een korte beschrijving voor "
-                    f"Book {index}. Dit is een korte samenvatting die de essentie van het boek neerzet. Dit klinkt lekker vaag, maar dat is ook de bedoeling. Het boek zelf is veel interessanter dan deze tekst."
-                ),
-                "price": format_price_cents(price_cents),
-                "price_cents": price_cents,
-                "delivery": f"{delivery_days}-{delivery_days + 1} werkdagen",
-                "stock": stock,
-            }
-        )
-
-    return books
+def _count_seed_rows(sql_script: str) -> int:
+    return sum(1 for line in sql_script.splitlines() if line.lstrip().startswith("('"))
 
 
-def get_placeholder_book(book_id: int, total_books: int = 71) -> dict[str, str | int] | None:
-    """teruggeven van een seeded placeholder boek op basis van id wanneer deze binnen de range van de seed valt."""
-    if 1 <= book_id <= total_books:
-        return build_placeholder_books(total_books)[book_id - 1]
-    return None
+def _seed_fingerprint(sql_script: str) -> str:
+    return sha256(sql_script.encode("utf-8")).hexdigest()
+
+
+def seed_books_with_insert_statements(sql_script: str | None = None) -> int:
+    """het seeden van de catalogus door middel van handmatige INSERT-statements uit het SQL-bestand uit te voeren."""
+    db = get_books_db()
+    if sql_script is None:
+        if not BOOKS_SEED_SQL_PATH.exists():
+            return 0
+        sql_script = BOOKS_SEED_SQL_PATH.read_text(encoding="utf-8")
+
+    if not sql_script.strip():
+        return 0
+
+    db.executescript(sql_script)
+    return _count_seed_rows(sql_script)
 
 
 def init_books_db() -> None:
-    """aanmaken van de boektabellen aan en vul/herstel de voorbeelddata waar dat nodig is."""
+    """het aanmaken van de boektabel en deze te seeden met handmatige INSERT-statements."""
     db = get_books_db()
     db.execute(
         """
@@ -108,64 +94,47 @@ def init_books_db() -> None:
     if "stock" not in columns:
         db.execute("ALTER TABLE books ADD COLUMN stock INTEGER NOT NULL DEFAULT 0")
 
-    existing_books = db.execute("SELECT COUNT(*) AS total FROM books").fetchone()
-    first_book = db.execute("SELECT title FROM books ORDER BY id LIMIT 1").fetchone()
-    should_refresh_seed = first_book is not None and first_book["title"] == "Book 1"
-
-    if existing_books is not None and existing_books["total"] == 0:
-        db.executemany(
-            """
-            INSERT INTO books (title, author, isbn, binding, language, genre, summary, price, price_cents, delivery, stock)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
-            [
-                (
-                    book["title"],
-                    book["author"],
-                    book["isbn"],
-                    book["binding"],
-                    book["language"],
-                    book["genre"],
-                    book["summary"],
-                    book["price"],
-                    book["price_cents"],
-                    book["delivery"],
-                    book["stock"],
-                )
-                for book in build_placeholder_books()
-            ],
+    db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS seed_state (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
         )
-    elif should_refresh_seed:
-        db.executemany(
+        """
+    )
+
+    if not BOOKS_SEED_SQL_PATH.exists():
+        db.commit()
+        return
+
+    sql_script = BOOKS_SEED_SQL_PATH.read_text(encoding="utf-8")
+    expected_books = _count_seed_rows(sql_script)
+    seed_hash = _seed_fingerprint(sql_script)
+    current_books_row = db.execute("SELECT COUNT(*) AS total FROM books").fetchone()
+    current_books = int(current_books_row["total"]) if current_books_row is not None else 0
+    stored_hash_row = db.execute(
+        "SELECT value FROM seed_state WHERE key = ?",
+        ("books_seed_sql_sha256",),
+    ).fetchone()
+    stored_hash = str(stored_hash_row["value"]) if stored_hash_row is not None else ""
+
+    # Reseed als inhoud van books_seed.sql is gewijzigd of aantallen afwijken.
+    if current_books != expected_books or stored_hash != seed_hash:
+        db.execute("DELETE FROM books")
+        seed_books_with_insert_statements(sql_script)
+        db.execute(
             """
-            UPDATE books
-            SET title = ?, author = ?, isbn = ?, binding = ?, language = ?, genre = ?, summary = ?, price = ?, price_cents = ?, delivery = ?, stock = ?
-            WHERE id = ?
+            INSERT INTO seed_state (key, value) VALUES (?, ?)
+            ON CONFLICT(key) DO UPDATE SET value = excluded.value
             """,
-            [
-                (
-                    book["title"],
-                    book["author"],
-                    book["isbn"],
-                    book["binding"],
-                    book["language"],
-                    book["genre"],
-                    book["summary"],
-                    book["price"],
-                    book["price_cents"],
-                    book["delivery"],
-                    book["stock"],
-                    book["id"],
-                )
-                for book in build_placeholder_books()
-            ],
+            ("books_seed_sql_sha256", seed_hash),
         )
 
     db.commit()
 
 
 def build_book_filters(genre: str | None = None, language: str | None = None, price_filter: str | None = None) -> tuple[str, list[Any]]:
-    """hier worden filterkeuzes vertaald naar SQL where-clauses met parameters."""
+    """hier worden filterkeuzes omgezet naar SQL where-clauses met parameters."""
     clauses: list[str] = []
     params: list[Any] = []
 
