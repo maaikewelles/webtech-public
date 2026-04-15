@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import (
     current_user,
@@ -15,6 +17,7 @@ from core import (
     get_user_by_id,
     normalize_email,
 )
+from services.models import User
 
 
 bp = Blueprint("auth", __name__)
@@ -51,10 +54,9 @@ def auth() -> str:
                         else:
                             flash(f"Welkom terug, {auth_user.name}! Fijn dat je er weer bent.", "success")
                         db = get_db()
-                        db.execute(
-                            "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?",
-                            (auth_user.id,),
-                        )
+                        current_db_user = db.get(User, auth_user.id)
+                        if current_db_user is not None:
+                            current_db_user.last_login = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         db.commit()
                     return redirect(url_for("account.profile"))
 
@@ -77,19 +79,18 @@ def auth() -> str:
                 preferred_form = "register"
             else:
                 db = get_db()
-                existing = db.execute("SELECT id FROM users WHERE email = ?", (email,)).fetchone()
+                existing = get_user_by_email(email)
                 if existing:
                     message = "Er bestaat al een account met dit e-mailadres."
                     preferred_form = "register"
                 else:
                     password_hash = generate_password_hash(password)
-                    cursor = db.execute(
-                        "INSERT INTO users (name, email, password_hash, is_admin) VALUES (?, ?, ?, 0)",
-                        (name, email, password_hash),
-                    )
+                    db_user = User(name=name, email=email, password_hash=password_hash, is_admin=0)
+                    db.add(db_user)
+                    db.flush()
                     db.commit()
 
-                    created_user = get_user_by_id(int(cursor.lastrowid))
+                    created_user = get_user_by_id(int(db_user.id))
                     auth_user = as_app_user(created_user)
                     if auth_user is not None:
                         flask_login_user(auth_user)

@@ -16,6 +16,8 @@ Een simpele Flask webapplicatie gemaakt onder andere met Bootstrap als framework
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" height="40" alt="bootstrap logo"  />
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" height="40" alt="flask logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg" height="40" alt="sqlalchemy logo"  />
 </div>
 
 ## Setup
@@ -61,7 +63,7 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 
 ## Authenticatie
 
-- Maakt gebruik van SQLite `instance/users.db`
+- Maakt gebruik van SQLite `instance/users.db` via SQLAlchemy ORM
 - Registratie slaat hashed passwords op
 - Login maakt gebruik van session-based authentication
 - Flask-Login wordt gebruikt voor beschermde routes
@@ -69,7 +71,7 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 
 ## Boeken
 
-- De webshop laadt boeken uit SQLite: `instance/books.db` (database nog niet gerealiseerd)
+- De webshop laadt boeken uit SQLite: `instance/books.db` via SQLAlchemy ORM
 - De database wordt automatisch aangemaakt en gevuld met de huidige catalogus bij het opstarten
 - Product-, overzichts- en zoekpagina’s lezen rechtstreeks uit deze database
 
@@ -88,12 +90,14 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 - `blueprints/shop.py` voor shop, productpagina, cadeau ideeën en zoekfunctionaliteit
 - `blueprints/cart.py` voor het winkelmandje en voor het plaatsen van een bestelling
 - `services/` bevat gedeelde logica en databasefuncties (zoals users, books, orders en wishlist) zodat de code overzichtelijk en goed te onderhouden blijft
+- De datalaag gebruikt SQLAlchemy ORM-modellen naast SQLite
 
 ## Omgevingsvariabelen
 
 - `SECRET_KEY` voor een vaste app secret
 - `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` voor het admin-account bij initialisatie
 - Bij initialisatie van de app is het e-mailadres van Admin admin@hoofdzaken.nl en het wachtwoord is Admin123!
+- De databasebestanden worden automatisch aangemaakt in `instance/` bij het opstarten van de applicatie
 
 ## Overige functionaliteit
 
@@ -106,7 +110,7 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 ## Bronvermelding
 
 Onderstaande bronnen en documentatie zijn gebruikt om te leren over Flask, Jinja, Bootstrap et cetera naast lesmateriaal vanuit de Hanze.
-- [Officiële quickstart documentatie voor Flask](https://flask.palletsprojects.com/en/stable/quickstart/#)
+- [Quickstart documentatie van Flask](https://flask.palletsprojects.com/en/stable/quickstart/#)
 - [Jinja2 templates en forms](https://www.codecademy.com/learn/learn-flask-jinja2-templates-and-forms)
 - [Blueprints](https://flask.palletsprojects.com/en/stable/blueprints/)
 - [Flash messages met Flask](https://flask.palletsprojects.com/en/stable/patterns/flashing/)
@@ -118,4 +122,8 @@ Onderstaande bronnen en documentatie zijn gebruikt om te leren over Flask, Jinja
 - [Bootstrap: Pagination](https://getbootstrap.com/docs/4.0/components/pagination/)
 - [CSRF (Cross-Site Request Forgery)](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/CSRF)
 - [urllib.parse — Parse URLs into component](https://docs.python.org/3/library/urllib.parse.html)
+- [collections.abc — Abstract Base Classes for Containers](https://docs.python.org/3/library/collections.abc.html)
 - [MarkupSafe Documentatie](https://markupsafe.palletsprojects.com/en/stable/)
+- [SQLAlchemy Documentatie met SQLite](https://docs.sqlalchemy.org/en/20/dialects/sqlite.html)
+- [Inserting Data into SQLite Using SQLAlchemy](https://sibabalwesinyaniso.medium.com/inserting-data-into-sqlite-using-sqlalchemy-core-9132772154e3)
+- [SQLAlchemy ORM](https://docs.sqlalchemy.org/en/20/orm/)

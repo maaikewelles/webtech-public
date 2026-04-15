@@ -18,6 +18,7 @@ from core import (
     list_wishlist_books,
     update_order_status,
 )
+from services.models import User
 
 
 bp = Blueprint("account", __name__)
@@ -139,10 +140,10 @@ def upload_profile_picture():
     file.save(upload_path)
 
     db = get_db()
-    existing = db.execute("SELECT profile_image FROM users WHERE id = ?", (user_id,)).fetchone()
-    old_filename = existing["profile_image"] if existing else None
-
-    db.execute("UPDATE users SET profile_image = ? WHERE id = ?", (new_filename, user_id))
+    existing = db.get(User, user_id)
+    old_filename = existing.profile_image if existing else None
+    if existing is not None:
+        existing.profile_image = new_filename
     db.commit()
 
     if old_filename:

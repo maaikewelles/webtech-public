@@ -2,7 +2,6 @@
 
 ## Database
 - Foto's vd boeken
-- koppeling met SQLAlchemy
 
 ## Cadeau Ideeën-pagina
 - Foto's producten
@@ -15,6 +14,7 @@
 - Webshop aanvullen met filters zoals sorteren op alfabetische volgorde
 - Auth knoppen stuk minder breed
 - "Bestand uploaden" profielfoto minder breed
+- Rijen in wishlist moeten een vaste hoogte hebben en niet "veranderen" daarin
 
 ## Comments
 - COMMENTS! COMMENTS! COMMENTS!
