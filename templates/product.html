@@ -8,9 +8,20 @@
         <div class="card-body">
             <div class="row g-2 align-items-start product-detail-row">
                 <div class="col-md-4 col-lg-3 product-detail-cover">
+                    {% if book["cover_image"] %}
+                    <img
+                        class="product-cover-image"
+                        src="{{ url_for('static', filename=book['cover_image']) }}"
+                        alt="Cover van {{ book['title'] }}"
+                        loading="lazy"
+                        data-fallback="{{ url_for('static', filename='default_book_cover.svg') }}"
+                        onerror="this.onerror=null;this.src=this.dataset.fallback;"
+                    >
+                    {% else %}
                     <div class="book-cover-placeholder" role="img" aria-label="Placeholder afbeelding voor {{ book['title'] }}">
                         Foto boek
                     </div>
+                    {% endif %}
                 </div>
 
                 <aside class="col-md-8 col-lg-9 product-detail-actions">

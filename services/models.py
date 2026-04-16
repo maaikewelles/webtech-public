@@ -23,6 +23,7 @@ class Book(BooksBase):
     summary: Mapped[str] = mapped_column(Text, nullable=False)
     price: Mapped[str] = mapped_column(String, nullable=False)
     price_cents: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    cover_image: Mapped[str] = mapped_column(String, nullable=True)
     delivery: Mapped[str] = mapped_column(String, nullable=False)
     stock: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 

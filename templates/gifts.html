@@ -23,9 +23,20 @@
 					<div class="card border-dark-subtle h-100 gifts-book-card">
 						<div class="card-body d-grid gap-2">
 							<a class="gifts-book-cover-link" href="{{ url_for('shop.product_page', book_id=book['id']) }}" aria-label="Bekijk {{ book['title'] }}">
+								{% if book["cover_image"] %}
+								<img
+									class="gifts-book-cover-image"
+									src="{{ url_for('static', filename=book['cover_image']) }}"
+									alt="Cover van {{ book['title'] }}"
+									loading="lazy"
+									data-fallback="{{ url_for('static', filename='default_book_cover.svg') }}"
+									onerror="this.onerror=null;this.src=this.dataset.fallback;"
+								>
+								{% else %}
 								<div class="book-cover-placeholder" role="img" aria-label="Placeholder afbeelding voor {{ book['title'] }}">
 									Foto boek
 								</div>
+								{% endif %}
 							</a>
 							<h4><a class="order-item-link" href="{{ url_for('shop.product_page', book_id=book['id']) }}">{{ book["title"] }}</a></h4>
 							<p class="gifts-book-author">{{ book["author"] }}</p>

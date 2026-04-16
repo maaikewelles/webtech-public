@@ -30,6 +30,7 @@ class BookDict(TypedDict):
     summary: str
     price: str
     price_cents: int
+    cover_image: str | None
     delivery: str
     stock: int
 
@@ -98,6 +99,8 @@ def init_books_db() -> None:
         db.connection().exec_driver_sql("ALTER TABLE books ADD COLUMN genre TEXT NOT NULL DEFAULT 'Algemeen'")
     if "price_cents" not in columns:
         db.connection().exec_driver_sql("ALTER TABLE books ADD COLUMN price_cents INTEGER NOT NULL DEFAULT 0")
+    if "cover_image" not in columns:
+        db.connection().exec_driver_sql("ALTER TABLE books ADD COLUMN cover_image TEXT")
     if "stock" not in columns:
         db.connection().exec_driver_sql("ALTER TABLE books ADD COLUMN stock INTEGER NOT NULL DEFAULT 0")
 
@@ -111,7 +114,7 @@ def init_books_db() -> None:
     current_books = int(db.scalar(select(func.count()).select_from(Book)) or 0)
     stored_hash = str(db.scalar(select(SeedState.value).where(SeedState.key == "books_seed_sql_sha256")) or "")
 
-    # reseeden op een non-destructieve manier:bestaande IDs blijven gelijk en nieuwe ISBNs worden toegevoegd,
+    # reseeden op een non-destructieve manier: bestaande IDs blijven gelijk en nieuwe ISBNs worden toegevoegd,
     # bestaande ISBNs worden geüpdatet via 'ON CONFLICT' in het seed-script.
     if current_books != expected_books or stored_hash != seed_hash:
         seed_books_with_insert_statements(sql_script)
@@ -181,6 +184,7 @@ def _book_to_dict(book: Book) -> BookDict:
         "summary": book.summary,
         "price": format_price_cents(book.price_cents),
         "price_cents": book.price_cents,
+        "cover_image": book.cover_image,
         "delivery": book.delivery,
         "stock": book.stock,
     }

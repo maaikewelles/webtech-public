@@ -27,9 +27,20 @@
             <div class="card-body">
                 <div class="d-flex align-items-start gap-3 cart-item-top">
                     <a class="cart-book-cover-link" href="{{ url_for('shop.product_page', book_id=item.book['id']) }}" aria-label="Bekijk {{ item.book['title'] }}">
+                        {% if item.book["cover_image"] %}
+                        <img
+                            class="cart-book-cover cart-book-cover-image"
+                            src="{{ url_for('static', filename=item.book['cover_image']) }}"
+                            alt="Cover van {{ item.book['title'] }}"
+                            loading="lazy"
+                            data-fallback="{{ url_for('static', filename='default_book_cover.svg') }}"
+                            onerror="this.onerror=null;this.src=this.dataset.fallback;"
+                        >
+                        {% else %}
                         <div class="book-cover-placeholder cart-book-cover" role="img" aria-label="Placeholder afbeelding voor {{ item.book['title'] }}">
                             Foto boek
                         </div>
+                        {% endif %}
                     </a>
 
                     <div class="cart-item-vertical-divider" aria-hidden="true"></div>

@@ -61,6 +61,13 @@ Een andere, waarschijnlijk een stuk eenvoudige manier qua setup. Run `run.bat` v
 - `/cart` winkelmandje
 - `/cart/checkout` afrekenen (vereist login)
 
+## Database
+
+De app gebruikt twee aparte SQLite-databases in `instance/`:
+
+- `users.db` voor gebruikers, authenticatie, wishlist en bestellingen
+- `books.db` voor de boekencatalogus
+
 ## Authenticatie
 
 - Maakt gebruik van SQLite `instance/users.db` via SQLAlchemy ORM
@@ -127,5 +134,6 @@ Onderstaande bronnen en documentatie zijn gebruikt om te leren over Flask, Jinja
 - [SQLAlchemy Documentatie met SQLite](https://docs.sqlalchemy.org/en/20/dialects/sqlite.html)
 - [Inserting Data into SQLite Using SQLAlchemy](https://sibabalwesinyaniso.medium.com/inserting-data-into-sqlite-using-sqlalchemy-core-9132772154e3)
 - [SQLAlchemy ORM](https://docs.sqlalchemy.org/en/20/orm/)
+- [Lazy Loading - Performace](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Lazy_loading)
 
 Disclaimer: de stijl van de index-pagina is (losjes) gebaseerd op lokale boekenwinkels in Groningen, omdat Hoofdzaken & Co. een fictieve winkel is had het uiteraard geen eigen materiaal om gebruik van te maken.

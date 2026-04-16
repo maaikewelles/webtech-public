@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" role="img" aria-label="Geen boekcover beschikbaar">
+  <rect width="200" height="300" fill="#f5ddc8" />
+  <rect x="18" y="18" width="164" height="264" fill="#fff4e8" stroke="#000" stroke-width="2" />
+  <rect x="34" y="52" width="132" height="16" fill="#e8c39f" />
+  <rect x="34" y="80" width="92" height="12" fill="#f0d4b5" />
+  <rect x="34" y="112" width="132" height="2" fill="#000" opacity="0.2" />
+  <rect x="34" y="128" width="132" height="2" fill="#000" opacity="0.2" />
+  <rect x="34" y="144" width="132" height="2" fill="#000" opacity="0.2" />
+  <text x="100" y="236" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" fill="#4c3e36">Geen cover</text>
+</svg>

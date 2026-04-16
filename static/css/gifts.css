@@ -73,11 +73,15 @@
     color: inherit;
 }
 
-.gifts-page .book-cover-placeholder {
+.gifts-page .gifts-book-cover-image {
     width: 100%;
     max-width: none;
     aspect-ratio: 2 / 3;
-    background: var(--color-placeholder);
+    object-fit: contain;
+    object-position: center;
+    border: 2px solid #000;
+    border-radius: 0;
+    display: block;
 }
 
 .gifts-page .gifts-book-card h4 {

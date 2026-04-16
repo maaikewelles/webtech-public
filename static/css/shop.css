@@ -177,6 +177,20 @@
     max-width: 140px;
     aspect-ratio: 2 / 3;
     background: var(--color-placeholder);
+    border: 1px solid #000;
+    margin-left: 1.1rem;
+}
+
+.shop-page .shop-product-cover-image {
+    width: 100%;
+    max-width: 140px;
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--color-placeholder);
+    border: 1px solid #000;
+    display: block;
+    margin-left: 1.1rem;
 }
 
 .shop-page .shop-page-current {

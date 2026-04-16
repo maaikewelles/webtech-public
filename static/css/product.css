@@ -18,6 +18,21 @@
     max-width: 240px;
     aspect-ratio: 2 / 3;
     margin: 0;
+    border: 1px solid #000;
+    border-radius: 0;
+}
+
+.shop-page .product-detail-cover .product-cover-image {
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--color-placeholder);
+    display: block;
+    margin: 0;
+    border: 1px solid #000;
+    border-radius: 0;
 }
 
 .shop-page .product-detail-row {
@@ -108,6 +123,10 @@
     .shop-page .product-detail-cover .book-cover-placeholder {
         max-width: 220px;
     }
+
+    .shop-page .product-detail-cover .product-cover-image {
+        max-width: 220px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -116,6 +135,10 @@
     }
 
     .shop-page .product-detail-cover .book-cover-placeholder {
+        max-width: 220px;
+    }
+
+    .shop-page .product-detail-cover .product-cover-image {
         max-width: 220px;
     }
 

@@ -109,30 +109,36 @@ def gifts() -> str:
     curated_rows = [
         {
             "prompt": "Inspiratie voor degene die moeite heeft met zich houden aan nieuwjaarsresoluties...",
-            "book_ids": [1355, 1369, 1359],
+            "book_titles": ["Atomic Habits", "Financial Selfcare", "Opgeruimd!"],
         },
         {
             "prompt": "Inspiratie voor de romanticus die beter wil leren luisteren...",
-            "book_ids": [1367, 1364, 1375],
+            "book_titles": ["Houd me vast", "All About Love", "De 5 talen van de liefde"],
         },
         {
             "prompt": "Inspiratie voor degene die bezig is met persoonlijke groei en zelfinzicht...",
-            "book_ids": [1376, 1356, 1358],
+            "book_titles": ["Own the Room", "Wees eens lief voor jezelf", "The Let Them Theory"],
         },
         {
             "prompt": "Inspiratie voor degene die wil leren over neurodiversiteit...",
-            "book_ids": [1363, 1360, 1381],
+            "book_titles": ["Maar je ziet er helemaal niet autistisch uit", "Druks", "Anders gaat ook"],
         },
         {
             "prompt": "Inspiratie voor degene wiens innerlijke filosoof steeds meer naar boven komt...",
-            "book_ids": [1357, 1371, 1363],
+            "book_titles": ["Socrates op sneakers", "Tao: De levende religie van China", "Meditations"],
         },
     ]
     gift_rows: list[dict[str, object]] = []
 
-    # strikte koppeling per prompt: alleen echte IDs uit books.id kunnen worden gebruikt
+    books_by_title = {book["title"]: book for book in list_books(limit=500)}
+
+    # alleen opnemen van titels die ook echt in de daadwerkelijk catalogus staan.
     for row in curated_rows:
-        row_books = [book for book in (get_book_by_id(int(book_id)) for book_id in row["book_ids"]) if book is not None]
+        row_books = [
+            books_by_title[title]
+            for title in row["book_titles"]
+            if title in books_by_title
+        ]
 
         gift_rows.append({"prompt": row["prompt"], "books": row_books})
 
