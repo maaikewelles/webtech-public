@@ -106,20 +106,35 @@ def shop() -> str:
 
 @bp.get("/gifts")
 def gifts() -> str:
-    prompt_rows = [
-        "Inspiratie voor degene die moeite heeft met zich houden aan nieuwjaarsresoluties...",
-        "Inspiratie voor de romanticus die beter wil leren luisteren...",
-        "Inspiratie voor degene die bezig is met persoonlijke groei en zelfinzicht...",
-        "Inspiratie voor degene die wil leren over neurodiversiteit...",
-        "Inspiratie voor degene wiens innerlijke filosoof steeds meer naar boven komt...",
+    curated_rows = [
+        {
+            "prompt": "Inspiratie voor degene die moeite heeft met zich houden aan nieuwjaarsresoluties...",
+            "book_ids": [1355, 1369, 1359],
+        },
+        {
+            "prompt": "Inspiratie voor de romanticus die beter wil leren luisteren...",
+            "book_ids": [1367, 1364, 1375],
+        },
+        {
+            "prompt": "Inspiratie voor degene die bezig is met persoonlijke groei en zelfinzicht...",
+            "book_ids": [1376, 1356, 1358],
+        },
+        {
+            "prompt": "Inspiratie voor degene die wil leren over neurodiversiteit...",
+            "book_ids": [1363, 1360, 1381],
+        },
+        {
+            "prompt": "Inspiratie voor degene wiens innerlijke filosoof steeds meer naar boven komt...",
+            "book_ids": [1357, 1371, 1363],
+        },
     ]
-    gift_books = list_books(limit=20)
     gift_rows: list[dict[str, object]] = []
 
-    for index, prompt in enumerate(prompt_rows):
-        start = index * 4
-        row_books = gift_books[start : start + 4]
-        gift_rows.append({"prompt": prompt, "books": row_books})
+    # strikte koppeling per prompt: alleen echte IDs uit books.id kunnen worden gebruikt
+    for row in curated_rows:
+        row_books = [book for book in (get_book_by_id(int(book_id)) for book_id in row["book_ids"]) if book is not None]
+
+        gift_rows.append({"prompt": row["prompt"], "books": row_books})
 
     return render_template("gifts.html", gift_rows=gift_rows, body_class="gifts-page")
 

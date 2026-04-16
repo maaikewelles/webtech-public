@@ -127,3 +127,5 @@ Onderstaande bronnen en documentatie zijn gebruikt om te leren over Flask, Jinja
 - [SQLAlchemy Documentatie met SQLite](https://docs.sqlalchemy.org/en/20/dialects/sqlite.html)
 - [Inserting Data into SQLite Using SQLAlchemy](https://sibabalwesinyaniso.medium.com/inserting-data-into-sqlite-using-sqlalchemy-core-9132772154e3)
 - [SQLAlchemy ORM](https://docs.sqlalchemy.org/en/20/orm/)
+
+Disclaimer: de stijl van de index-pagina is (losjes) gebaseerd op lokale boekenwinkels in Groningen, omdat Hoofdzaken & Co. een fictieve winkel is had het uiteraard geen eigen materiaal om gebruik van te maken.

@@ -5,7 +5,6 @@
 
 ## Cadeau Ideeën-pagina
 - Foto's producten
-- Ideetje om een carousel te maken in plaats van huidige opzet? Geen idee of dat haalbaar is binnen de tijd... Waarschijnlijk wel netter dan deze cards.
 
 ## Overig
 - Error pagina als een boek niet gevonden is via een route

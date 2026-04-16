@@ -5,15 +5,14 @@
     margin: 0.2rem 0;
 }
 
-.info-about {
-    width: 66.666%;
-    padding: 1rem;
-    border-radius: var(--radius-md);
-}
-
+.info-about,
 .info-green {
     width: 66.666%;
     padding: 1rem;
+}
+
+.info-about {
+    border-radius: var(--radius-md);
 }
 
 .info-hours {
@@ -27,9 +26,34 @@
 .info-about h5,
 .info-hours h5 {
     margin-top: 0;
+    margin-bottom: 0.35rem;
     font-weight: 650;
     color: var(--color-text);
     letter-spacing: 0.02em;
+}
+
+.content-main .info-row p {
+    margin: 0 0 0.7rem;
+}
+
+.content-main .info-row p:last-child {
+    margin-bottom: 0.25rem;
+}
+
+.content-main #info-disclaimer p {
+    margin: 0;
+}
+
+.content-main #webshop h4 {
+    margin-bottom: 0.2rem;
+}
+
+.image-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: stretch;
+    margin: 1.5rem 0;
 }
 
 .image-card {
@@ -65,14 +89,6 @@
     max-width: 100%;
     margin: 0 0 1rem;
     border: 2px solid var(--color-black);
-}
-
-.image-row {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: stretch;
-    margin: 1.5rem 0;
 }
 
 p a {
