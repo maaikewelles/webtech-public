@@ -38,14 +38,14 @@ QueryParam = str | int
 
 
 def format_price_cents(price_cents: int) -> str:
-    """formatteren van prijs in centen naar de EUR notatie die in de webshop wordt gehanteerd."""
+    """formatteren van prijs in centen naar de euro-notatie die in de webshop wordt gehanteerd."""
     euros, cents = divmod(price_cents, 100)
-    return f"EUR {euros},{cents:02d}"
+    return f"€{euros},{cents:02d}"
 
 
 def parse_price_text(price_text: str) -> int:
     """geformatteerde prijs terug omzetten naar centen."""
-    cleaned_price = price_text.upper().replace("EUR", "").strip().replace(".", "")
+    cleaned_price = price_text.upper().replace("EUR", "").replace("€", "").strip().replace(".", "")
     euros_text, _, cents_text = cleaned_price.partition(",")
     euros = int(euros_text or "0")
     cents = int((cents_text + "00")[:2]) if cents_text else 0
@@ -179,7 +179,7 @@ def _book_to_dict(book: Book) -> BookDict:
         "language": book.language,
         "genre": book.genre,
         "summary": book.summary,
-        "price": book.price,
+        "price": format_price_cents(book.price_cents),
         "price_cents": book.price_cents,
         "delivery": book.delivery,
         "stock": book.stock,
