@@ -22,12 +22,22 @@
         <section class="profile-picture-section">
             <img class="profile-picture" src="{{ profile_image_url }}" alt="Profielfoto van {{ user['name'] }}">
 
-            <form method="post" action="{{ url_for('account.upload_profile_picture') }}" enctype="multipart/form-data" class="profile-picture-form">
-                {{ csrf_field() }}
-                <label class="form-label mb-1" for="profile-picture">Profielfoto kiezen</label>
-                <input class="form-control profile-picture-input" id="profile-picture" name="profile_picture" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" required>
-                <button type="submit" class="btn btn-success">Foto uploaden</button>
-            </form>
+            <div class="profile-picture-actions">
+                <form id="profile-picture-upload-form" method="post" action="{{ url_for('account.upload_profile_picture') }}" enctype="multipart/form-data" class="profile-picture-form">
+                    {{ csrf_field() }}
+                    <label class="form-label mb-1" for="profile-picture">Profielfoto kiezen</label>
+                    <input class="form-control profile-picture-input" id="profile-picture" name="profile_picture" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" required>
+                </form>
+
+                <div class="profile-picture-button-row">
+                    <button type="submit" form="profile-picture-upload-form" class="btn btn-success">Foto uploaden</button>
+
+                    <form method="post" action="{{ url_for('account.delete_profile_picture') }}" class="profile-picture-remove-form">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-orange" {% if not user['profile_image'] %}disabled{% endif %}>Foto verwijderen</button>
+                    </form>
+                </div>
+            </div>
         </section>
 
         <h4 class="h5"><strong>Accountgegevens</strong></h4>

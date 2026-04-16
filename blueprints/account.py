@@ -151,4 +151,29 @@ def upload_profile_picture():
         if old_path.exists() and old_path.is_file():
             old_path.unlink()
 
-    return redirect(url_for("account.profile", message="Profielfoto bijgewerkt."))
+    flash("Je profielfoto is succesvol geüpdatet!", "success")
+    return redirect(url_for("account.profile"))
+
+
+@bp.post("/profile/picture/delete")
+@login_required
+def delete_profile_picture():
+    user_id = current_user.id
+
+    db = get_db()
+    existing = db.get(User, user_id)
+    if existing is None:
+        flask_logout_user()
+        return redirect(url_for("auth.auth"))
+
+    old_filename = existing.profile_image
+    existing.profile_image = None
+    db.commit()
+
+    if old_filename:
+        old_path = Path(current_app.config["UPLOAD_FOLDER"]) / old_filename
+        if old_path.exists() and old_path.is_file():
+            old_path.unlink()
+
+    flash("Je profielfoto is verwijderd.", "success")
+    return redirect(url_for("account.profile"))

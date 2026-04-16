@@ -28,6 +28,18 @@
     margin: 0 0 1rem;
 }
 
+.profile-picture-actions {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.profile-picture-button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
 .profile-picture {
     width: 120px;
     height: 120px;
@@ -45,6 +57,18 @@
 .profile-picture-form .btn {
     width: fit-content;
     justify-self: start;
+}
+
+.profile-picture-remove-form {
+    margin: 0;
+}
+
+.profile-picture-remove-form .btn {
+    width: fit-content;
+}
+
+.profile-picture-button-row .btn {
+    width: fit-content;
 }
 
 .profile-picture-form input[type="file"] {
