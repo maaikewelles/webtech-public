@@ -34,7 +34,8 @@
 
 .image-card {
     flex: 1 1 0;
-    border-radius: var(--radius-md);
+    border: 3px solid var(--color-black);
+    border-radius: 0;
     overflow: hidden;
     max-width: 33.333%;
 }
@@ -42,8 +43,8 @@
 .image-card img {
     width: 100%;
     display: block;
-    object-fit: cover;
-    height: 270px;
+    height: auto;
+    object-fit: contain;
 }
 
 .image-card .home-book-placeholder {
