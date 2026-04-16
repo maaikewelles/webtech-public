@@ -59,7 +59,8 @@
     text-decoration: none;
 }
 
-.cart-page .cart-book-cover {
+.cart-page .cart-book-cover,
+.cart-page .cart-book-cover-image {
     width: 120px;
     max-width: none;
     aspect-ratio: 2 / 3;
@@ -69,13 +70,8 @@
 }
 
 .cart-page .cart-book-cover-image {
-    width: 120px;
-    max-width: none;
-    aspect-ratio: 2 / 3;
     object-fit: contain;
     object-position: center;
-    background-color: var(--color-placeholder);
-    display: block;
 }
 
 .cart-page .cart-item-form {

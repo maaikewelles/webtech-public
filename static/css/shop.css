@@ -1,7 +1,4 @@
 /* alles voor de webshop */
-.shop-header {
-    margin: 0 0 1rem;
-}
 
 .shop-page {
     --color-nav-hover: #276947;
@@ -172,25 +169,13 @@
     align-items: center;
 }
 
-.shop-page .book-cover-placeholder {
-    width: 100%;
-    max-width: 140px;
-    aspect-ratio: 2 / 3;
-    background: var(--color-placeholder);
-    border: 1px solid #000;
-    margin-left: 1.1rem;
-}
-
+.shop-page .book-cover-placeholder,
 .shop-page .shop-product-cover-image {
     width: 100%;
     max-width: 140px;
     aspect-ratio: 2 / 3;
-    object-fit: contain;
-    object-position: center;
-    background-color: var(--color-placeholder);
-    border: 1px solid #000;
-    display: block;
     margin-left: 1.1rem;
+    border: 1px solid #000;
 }
 
 .shop-page .shop-page-current {
@@ -344,48 +329,11 @@
     border-color: var(--color-nav-hover);
 }
 
-.shop-header h2 {
+.shop-page .shop-header h2 {
     margin: 0 0 0.35rem;
 }
 
-.shop-header p {
-    margin: 0;
-}
-
-.shop-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.9rem;
-}
-
-.book-card {
-    border: var(--border);
-    border-radius: var(--radius-md);
-    background-color: var(--color-card);
-    padding: 0.85rem;
-    display: grid;
-    gap: 0.45rem;
-}
-
-.book-cover-placeholder {
-    width: min(100%, 180px);
-    aspect-ratio: 2 / 3;
-    border: var(--border);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-card-alt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    margin: 0 auto;
-}
-
-.book-card h4 {
-    margin: 0;
-    font-size: 1rem;
-}
-
-.book-author {
+.shop-page .shop-header p {
     margin: 0;
 }
 

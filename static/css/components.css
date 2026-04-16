@@ -62,3 +62,26 @@
     border: var(--border-strong);
 }
 
+/* gedeelde placeholders en cover-afbeeldingen */
+.book-cover-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-black);
+    background-color: var(--color-placeholder);
+}
+
+.shop-page .shop-product-cover-image,
+.shop-page .product-detail-cover .product-cover-image,
+.cart-page .cart-book-cover-image,
+.gifts-page .gifts-book-cover-image {
+    aspect-ratio: 2 / 3;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background-color: var(--color-placeholder);
+    border-radius: 0;
+}
+

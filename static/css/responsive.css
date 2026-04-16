@@ -66,12 +66,6 @@
         max-width: 170px;
     }
 
-    .shop-page .shop-product-actions {
-        border-left: 0;
-        padding-left: 0;
-        border-top: var(--border-subtle);
-    }
-
     .shop-page .shop-filter-actions {
         max-width: none;
     }

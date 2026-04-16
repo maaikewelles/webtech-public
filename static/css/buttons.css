@@ -32,10 +32,6 @@
     padding-inline: 0.9rem;
 }
 
-.shop-cart-button {
-    padding-inline: 0.9rem;
-}
-
 .btn:hover {
     box-shadow: var(--shadow-md);
 }
